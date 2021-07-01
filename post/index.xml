@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Hugo tranquilpeak theme</title>
+    <link>https://whyzzd.github.io/post/</link>
+    <description>Recent content in Posts on Hugo tranquilpeak theme</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 01 Jul 2021 16:41:52 +0800</lastBuildDate><atom:link href="https://whyzzd.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基于多态的职工管理系统的思路及源码分析</title>
+      <link>https://whyzzd.github.io/2021/07/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E6%80%81%E7%9A%84%E8%81%8C%E5%B7%A5%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%B7%AF%E5%8F%8A%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
+      <pubDate>Thu, 01 Jul 2021 16:41:52 +0800</pubDate>
+      
+      <guid>https://whyzzd.github.io/2021/07/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E6%80%81%E7%9A%84%E8%81%8C%E5%B7%A5%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%B7%AF%E5%8F%8A%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
+      <description>本文是对前段时间刚学习的小项目之一&amp;mdash;-职工管理系统的设计思路、具体代码的编写进行较为详细的整理。一可以对自己的C++的知识进行再进行强化，另一方面也可以为正在学习这块知识的人提供一些帮助。
+@[toc]
+一、运行环境   windows10系统
+  Visual Studio 2015
+如果想锻炼一下能力的话，也可以使用文本编辑器+编译器来运行调试代码。
+  二、必要知识储备 1.Visual Studio的使用 2.C++基础知识 三、成品展示   增加职工信息     显示职工信息     删除离职员工     修改职工信息     查找职工信息     排序职工信息     清空所有文档   四、大体结构分析 前言：本节内容可以选看，可以进一步的加深对此项目的理解
+1.从文件目录结构分析 图中可以**分为三块内容**，分别是**头文件、源文件和资源文件**，头文件夹中有五个文件，分别对应的是源文件中源文件中的五个.cpp文件，源文件夹中另一个test.cpp即是整个程序的入口，另外资源文件夹中的empFile.txt则是用来存放员工的信息。  下面具体来分析一下这些文件之间的关联：
+首先，职员的种类一共分为三种，老板(boss)、经理(manager)和普通员工(employee)，那么就对应着有三对文件(.h/.cpp),本项目中的特色就是多态的应用，这三种职员全部都是Worker的子类，履行着各自的职责。另外一个职工管理类(workerManager)(.h/ .cpp)则是统筹全局，控制着所有的员工及所有的功能。test.cpp是整个程序的入口，展示着界面菜单，接受用户的输入，并根据输入调用职工管理类实例化出的对象来调用相应的功能。最后empFile文件则是保存着职工的数据，包括职工的编号、姓名和部门编号，在初始化或者每一次对员工的数据有任何操作的时候，都会将数据更新到这个文件当中，这样即使程序运行结束了，数据依然可以保存，以便下一次运行进行加载。
+以上以文件的目录的角度来分析这个项目，可以对大致的轮廓进行了解。
+2.从用户角度(需求)出发分析整个项目   从展示的主界面菜单来看，实际上整个展示菜单是通过调用函数实现的。WorkManager wm;实例化一个WorkManager类的对象，然后通过调用wm.Show_Menu();,即可显示整个展示界面。
+Show_Menu()的实现：
+void WorkManager:: Show_Menu() { cout &amp;lt;&amp;lt; &amp;#34;*********************************************&amp;#34;&amp;lt;&amp;lt;endl; cout &amp;lt;&amp;lt; &amp;#34;*************欢迎使用职工管理系统************&amp;#34; &amp;lt;&amp;lt; endl; cout &amp;lt;&amp;lt; &amp;#34;************* 0.</description>
+    </item>
+    
+    <item>
+      <title>基于Qt的Tcp简单通信示意图及代码实现</title>
+      <link>https://whyzzd.github.io/2021/07/%E5%9F%BA%E4%BA%8Eqt%E7%9A%84tcp%E7%AE%80%E5%8D%95%E9%80%9A%E4%BF%A1%E7%A4%BA%E6%84%8F%E5%9B%BE%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Thu, 01 Jul 2021 15:10:02 +0800</pubDate>
+      
+      <guid>https://whyzzd.github.io/2021/07/%E5%9F%BA%E4%BA%8Eqt%E7%9A%84tcp%E7%AE%80%E5%8D%95%E9%80%9A%E4%BF%A1%E7%A4%BA%E6%84%8F%E5%9B%BE%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/</guid>
+      <description>通信示意图 一、ui设计  服务器端  所用控件类型以及对象名如图所示，最好修改默认的命名以便于区别，在设置textEditRead时可以将它设置为readOnly
+ 客户端  所用控件类型以及对象名如图所示，最好修改默认的命名以便于区别，在设置textEditRead时可以将它设置为readOnly
+二、代码设计 两个窗口创建好之后，记得在.pro文件中添加network,即QT += core gui network，这样才能使用QTcpServer和QTcpSocket。
+  服务器端
+1.在serverwidget.h包含库，创建Server和Socket指针
+#include&amp;lt;QTcpServer&amp;gt;#include&amp;lt;QTcpSocket&amp;gt;... ... private: Ui::ServerWidget *ui; QTcpServer *tcpServer; QTcpSocket *tcpSocket; 2.serverwidget.cpp中代码
+#include &amp;#34;serverwidget.h&amp;#34;#include &amp;#34;ui_serverwidget.h&amp;#34; ServerWidget::ServerWidget(QWidget *parent) : QWidget(parent) , ui(new Ui::ServerWidget) { ui-&amp;gt;setupUi(this); setWindowTitle(&amp;#34;服务器:8888&amp;#34;); tcpServer=NULL; tcpSocket=NULL; tcpServer = new QTcpServer(this); tcpServer-&amp;gt;listen(QHostAddress::Any,8888); connect(tcpServer,&amp;amp;QTcpServer::newConnection,[=](){ tcpSocket=tcpServer-&amp;gt;nextPendingConnection(); QString ip = tcpSocket-&amp;gt;peerAddress().toString(); qint16 port = tcpSocket-&amp;gt;peerPort(); QString str=QString(&amp;#34;[%1:%2]:连接成功&amp;#34;).arg(ip).arg(port); ui-&amp;gt;textEditRead-&amp;gt;setText(str); connect(tcpSocket,&amp;amp;QTcpSocket::readyRead,[=](){ QByteArray arr =tcpSocket-&amp;gt;readAll(); ui-&amp;gt;textEditRead-&amp;gt;append(arr); }); });  }</description>
+    </item>
+    
+  </channel>
+</rss>

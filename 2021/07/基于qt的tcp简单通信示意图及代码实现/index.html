@@ -1,50 +1,26 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="">
   <head>
     
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Hugo 0.84.3 with theme Tranquilpeak 0.4.8-BETA">
-<meta name="author" content="WYF">
+<meta name="author" content="Firstname Lastname">
 <meta name="keywords" content="">
-<meta name="description" content="通信示意图 一、ui设计  服务器端  所用控件类型以及对象名如图所示，最好修改默认的命名以便于区别，在设置textEditRead时可以将它设置为readOnly
- 客户端  所用控件类型以及对象名如图所示，最好修改默认的命名以便于区别，在设置textEditRead时可以将它设置为readOnly
-二、代码设计 两个窗口创建好之后，记得在.pro文件中添加network,即QT &#43;= core gui network，这样才能使用QTcpServer和QTcpSocket。
-  服务器端
-1.在serverwidget.h包含库，创建Server和Socket指针
-#include&lt;QTcpServer&gt;#include&lt;QTcpSocket&gt;... ... private: Ui::ServerWidget *ui; QTcpServer *tcpServer; QTcpSocket *tcpSocket; 2.serverwidget.cpp中代码
-#include &#34;serverwidget.h&#34;#include &#34;ui_serverwidget.h&#34; ServerWidget::ServerWidget(QWidget *parent) : QWidget(parent) , ui(new Ui::ServerWidget) { ui-&gt;setupUi(this); setWindowTitle(&#34;服务器:8888&#34;); tcpServer=NULL; tcpSocket=NULL; tcpServer = new QTcpServer(this); tcpServer-&gt;listen(QHostAddress::Any,8888); connect(tcpServer,&amp;QTcpServer::newConnection,[=](){ tcpSocket=tcpServer-&gt;nextPendingConnection(); QString ip = tcpSocket-&gt;peerAddress().toString(); qint16 port = tcpSocket-&gt;peerPort(); QString str=QString(&#34;[%1:%2]:连接成功&#34;).arg(ip).arg(port); ui-&gt;textEditRead-&gt;setText(str); connect(tcpSocket,&amp;QTcpSocket::readyRead,[=](){ QByteArray arr =tcpSocket-&gt;readAll(); ui-&gt;textEditRead-&gt;append(arr); }); });  }">
+<meta name="description" content="通信示意图">
 
 
-<meta property="og:description" content="通信示意图 一、ui设计  服务器端  所用控件类型以及对象名如图所示，最好修改默认的命名以便于区别，在设置textEditRead时可以将它设置为readOnly
- 客户端  所用控件类型以及对象名如图所示，最好修改默认的命名以便于区别，在设置textEditRead时可以将它设置为readOnly
-二、代码设计 两个窗口创建好之后，记得在.pro文件中添加network,即QT &#43;= core gui network，这样才能使用QTcpServer和QTcpSocket。
-  服务器端
-1.在serverwidget.h包含库，创建Server和Socket指针
-#include&lt;QTcpServer&gt;#include&lt;QTcpSocket&gt;... ... private: Ui::ServerWidget *ui; QTcpServer *tcpServer; QTcpSocket *tcpSocket; 2.serverwidget.cpp中代码
-#include &#34;serverwidget.h&#34;#include &#34;ui_serverwidget.h&#34; ServerWidget::ServerWidget(QWidget *parent) : QWidget(parent) , ui(new Ui::ServerWidget) { ui-&gt;setupUi(this); setWindowTitle(&#34;服务器:8888&#34;); tcpServer=NULL; tcpSocket=NULL; tcpServer = new QTcpServer(this); tcpServer-&gt;listen(QHostAddress::Any,8888); connect(tcpServer,&amp;QTcpServer::newConnection,[=](){ tcpSocket=tcpServer-&gt;nextPendingConnection(); QString ip = tcpSocket-&gt;peerAddress().toString(); qint16 port = tcpSocket-&gt;peerPort(); QString str=QString(&#34;[%1:%2]:连接成功&#34;).arg(ip).arg(port); ui-&gt;textEditRead-&gt;setText(str); connect(tcpSocket,&amp;QTcpSocket::readyRead,[=](){ QByteArray arr =tcpSocket-&gt;readAll(); ui-&gt;textEditRead-&gt;append(arr); }); });  }">
+<meta property="og:description" content="通信示意图">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于Qt的Tcp简单通信示意图及代码实现">
 <meta name="twitter:title" content="基于Qt的Tcp简单通信示意图及代码实现">
 <meta property="og:url" content="https://whyzzd.github.io/2021/07/%E5%9F%BA%E4%BA%8Eqt%E7%9A%84tcp%E7%AE%80%E5%8D%95%E9%80%9A%E4%BF%A1%E7%A4%BA%E6%84%8F%E5%9B%BE%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/">
 <meta property="twitter:url" content="https://whyzzd.github.io/2021/07/%E5%9F%BA%E4%BA%8Eqt%E7%9A%84tcp%E7%AE%80%E5%8D%95%E9%80%9A%E4%BF%A1%E7%A4%BA%E6%84%8F%E5%9B%BE%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/">
-<meta property="og:site_name" content="Hugo tranquilpeak theme">
-<meta property="og:description" content="通信示意图 一、ui设计  服务器端  所用控件类型以及对象名如图所示，最好修改默认的命名以便于区别，在设置textEditRead时可以将它设置为readOnly
- 客户端  所用控件类型以及对象名如图所示，最好修改默认的命名以便于区别，在设置textEditRead时可以将它设置为readOnly
-二、代码设计 两个窗口创建好之后，记得在.pro文件中添加network,即QT &#43;= core gui network，这样才能使用QTcpServer和QTcpSocket。
-  服务器端
-1.在serverwidget.h包含库，创建Server和Socket指针
-#include&lt;QTcpServer&gt;#include&lt;QTcpSocket&gt;... ... private: Ui::ServerWidget *ui; QTcpServer *tcpServer; QTcpSocket *tcpSocket; 2.serverwidget.cpp中代码
-#include &#34;serverwidget.h&#34;#include &#34;ui_serverwidget.h&#34; ServerWidget::ServerWidget(QWidget *parent) : QWidget(parent) , ui(new Ui::ServerWidget) { ui-&gt;setupUi(this); setWindowTitle(&#34;服务器:8888&#34;); tcpServer=NULL; tcpSocket=NULL; tcpServer = new QTcpServer(this); tcpServer-&gt;listen(QHostAddress::Any,8888); connect(tcpServer,&amp;QTcpServer::newConnection,[=](){ tcpSocket=tcpServer-&gt;nextPendingConnection(); QString ip = tcpSocket-&gt;peerAddress().toString(); qint16 port = tcpSocket-&gt;peerPort(); QString str=QString(&#34;[%1:%2]:连接成功&#34;).arg(ip).arg(port); ui-&gt;textEditRead-&gt;setText(str); connect(tcpSocket,&amp;QTcpSocket::readyRead,[=](){ QByteArray arr =tcpSocket-&gt;readAll(); ui-&gt;textEditRead-&gt;append(arr); }); });  }">
-<meta name="twitter:description" content="通信示意图 一、ui设计  服务器端  所用控件类型以及对象名如图所示，最好修改默认的命名以便于区别，在设置textEditRead时可以将它设置为readOnly
- 客户端  所用控件类型以及对象名如图所示，最好修改默认的命名以便于区别，在设置textEditRead时可以将它设置为readOnly
-二、代码设计 两个窗口创建好之后，记得在.pro文件中添加network,即QT &#43;= core gui network，这样才能使用QTcpServer和QTcpSocket。
-  服务器端
-1.在serverwidget.h包含库，创建Server和Socket指针
-#include&lt;QTcpServer&gt;#include&lt;QTcpSocket&gt;... ... private: Ui::ServerWidget *ui; QTcpServer *tcpServer; QTcpSocket *tcpSocket; 2.serverwidget.cpp中代码
-#include &#34;serverwidget.h&#34;#include &#34;ui_serverwidget.h&#34; ServerWidget::ServerWidget(QWidget *parent) : QWidget(parent) , ui(new Ui::ServerWidget) { ui-&gt;setupUi(this); setWindowTitle(&#34;服务器:8888&#34;); tcpServer=NULL; tcpSocket=NULL; tcpServer = new QTcpServer(this); tcpServer-&gt;listen(QHostAddress::Any,8888); connect(tcpServer,&amp;QTcpServer::newConnection,[=](){ tcpSocket=tcpServer-&gt;nextPendingConnection(); QString ip = tcpSocket-&gt;peerAddress().toString(); qint16 port = tcpSocket-&gt;peerPort(); QString str=QString(&#34;[%1:%2]:连接成功&#34;).arg(ip).arg(port); ui-&gt;textEditRead-&gt;setText(str); connect(tcpSocket,&amp;QTcpSocket::readyRead,[=](){ QByteArray arr =tcpSocket-&gt;readAll(); ui-&gt;textEditRead-&gt;append(arr); }); });  }">
-<meta property="og:locale" content="zh-cn">
+<meta property="og:site_name" content="">
+<meta property="og:description" content="通信示意图">
+<meta name="twitter:description" content="通信示意图">
+<meta property="og:locale" content="en">
 
   
     <meta property="article:published_time" content="2021-07-01T15:10:02">
@@ -69,13 +45,13 @@
 
 
 
-  <meta property="og:image" content="https://www.gravatar.com/avatar/e39fcc4370dae2618625d4ab9f7d8a30?s=640">
-  <meta property="twitter:image" content="https://www.gravatar.com/avatar/e39fcc4370dae2618625d4ab9f7d8a30?s=640">
+  <meta property="og:image" content="https://www.gravatar.com/avatar/d09dc2d7aa5c467519e8af89f7b3d94c?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/d09dc2d7aa5c467519e8af89f7b3d94c?s=640">
 
 
     <title>基于Qt的Tcp简单通信示意图及代码实现</title>
 
-    <link rel="icon" href="https://whyzzd.github.io/favicon.png">
+    <link rel="icon" href="/favicon.png">
     
 
     
@@ -88,7 +64,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
     
     
-    <link rel="stylesheet" href="https://whyzzd.github.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    <link rel="stylesheet" href="/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
     
     
 
@@ -103,17 +79,17 @@
       <header id="header" data-behavior="4">
   <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
   <div class="header-title">
-    <a class="header-title-link" href="https://whyzzd.github.io/">Hugo tranquilpeak theme</a>
+    <a class="header-title-link" href="/"></a>
   </div>
   
     
       <a class="header-right-picture "
-         href="https://whyzzd.github.io/#about">
+         href="/#about">
     
     
     
       
-        <img class="header-picture" src="https://www.gravatar.com/avatar/e39fcc4370dae2618625d4ab9f7d8a30?s=90" alt="作者的图片" />
+        <img class="header-picture" src="https://www.gravatar.com/avatar/d09dc2d7aa5c467519e8af89f7b3d94c?s=90" alt="" />
       
     
     </a>
@@ -124,10 +100,10 @@
   <div class="sidebar-container">
     
       <div class="sidebar-profile">
-        <a href="https://whyzzd.github.io/#about">
-          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/e39fcc4370dae2618625d4ab9f7d8a30?s=110" alt="作者的图片" />
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/d09dc2d7aa5c467519e8af89f7b3d94c?s=110" alt="" />
         </a>
-        <h4 class="sidebar-profile-name">WYF</h4>
+        <h4 class="sidebar-profile-name">Firstname Lastname</h4>
         
           <h5 class="sidebar-profile-bio">Super bio with markdown support <strong>COOL</strong></h5>
         
@@ -137,51 +113,51 @@
       
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://whyzzd.github.io/">
+      <a class="sidebar-button-link " href="/">
     
       <i class="sidebar-button-icon fa fa-lg fa-home"></i>
       
-      <span class="sidebar-button-desc">首页</span>
+      <span class="sidebar-button-desc">Home</span>
     </a>
   </li>
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://whyzzd.github.io/categories">
+      <a class="sidebar-button-link " href="/categories">
     
       <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
       
-      <span class="sidebar-button-desc">分类</span>
+      <span class="sidebar-button-desc">Categories</span>
     </a>
   </li>
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://whyzzd.github.io/tags">
+      <a class="sidebar-button-link " href="/tags">
     
       <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
       
-      <span class="sidebar-button-desc">标签</span>
+      <span class="sidebar-button-desc">Tags</span>
     </a>
   </li>
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://whyzzd.github.io/archives">
+      <a class="sidebar-button-link " href="/archives">
     
       <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
       
-      <span class="sidebar-button-desc">搜索</span>
+      <span class="sidebar-button-desc">Archives</span>
     </a>
   </li>
 
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://whyzzd.github.io/#about">
+      <a class="sidebar-button-link " href="/#about">
     
       <i class="sidebar-button-icon fa fa-lg fa-question"></i>
       
-      <span class="sidebar-button-desc">关于</span>
+      <span class="sidebar-button-desc">About</span>
     </a>
   </li>
 
@@ -215,7 +191,7 @@
       
   <li class="sidebar-button">
     
-      <a class="sidebar-button-link " href="https://whyzzd.github.io/index.xml">
+      <a class="sidebar-button-link " href="/index.xml">
     
       <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
       
@@ -248,7 +224,7 @@
     
       <time itemprop="datePublished" datetime="2021-07-01T15:10:02&#43;08:00">
         
-  七月 1, 2021
+   1, 2021
 
       </time>
     
@@ -260,17 +236,17 @@
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <h3 id="通信示意图">通信示意图</h3>
-<!-- raw HTML omitted -->
+<img src="https://img-blog.csdnimg.cn/20210510185228523.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NjE4OTU5,size_16,color_FFFFFF,t_70#pic_center" width=75%>
 <h4 id="一ui设计">一、ui设计</h4>
 <ul>
 <li>服务器端</li>
 </ul>
-<!-- raw HTML omitted -->
+<img src="https://img-blog.csdnimg.cn/20210510185434557.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NjE4OTU5,size_16,color_FFFFFF,t_70#pic_center" width=75%>
 <p>所用控件类型以及对象名如图所示，最好修改默认的命名以便于区别，在设置textEditRead时可以将它设置为readOnly</p>
 <ul>
 <li>客户端</li>
 </ul>
-<!-- raw HTML omitted -->
+<img src="https://img-blog.csdnimg.cn/20210510185447461.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NjE4OTU5,size_16,color_FFFFFF,t_70#pic_center" width=75%>
 <p>所用控件类型以及对象名如图所示，最好修改默认的命名以便于区别，在设置textEditRead时可以将它设置为readOnly</p>
 <h4 id="二代码设计">二、代码设计</h4>
 <p>两个窗口创建好之后，记得在.pro文件中添加network,即<code>QT += core gui network</code>，这样才能使用QTcpServer和QTcpSocket。</p>
@@ -407,10 +383,7 @@ ClientWidget<span style="color:#f92672">::~</span>ClientWidget()
 </code></pre></div></li>
 </ul>
 <h4 id="三成品效果图演示">三、成品效果图演示</h4>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p><img src="https://img-blog.csdnimg.cn/20210510185500749.gif#pic_center" alt="阿斯顿"></p>
-
+<img src="https://img-blog.csdnimg.cn/20210510185500749.gif#pic_center" width=80%>
               
             </div>
           </div>
@@ -425,17 +398,17 @@ ClientWidget<span style="color:#f92672">::~</span>ClientWidget()
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://whyzzd.github.io/2021/07/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E6%80%81%E7%9A%84%E8%81%8C%E5%B7%A5%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%B7%AF%E5%8F%8A%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" data-tooltip="基于多态的职工管理系统的思路及源码分析">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/07/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E6%80%81%E7%9A%84%E8%81%8C%E5%B7%A5%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%B7%AF%E5%8F%8A%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" data-tooltip="基于多态的职工管理系统的思路及源码分析">
               
                   <i class="fa fa-angle-left"></i>
-                  <span class="hide-xs hide-sm text-small icon-ml">下一篇</span>
+                  <span class="hide-xs hide-sm text-small icon-ml"></span>
                 </a>
             </li>
             <li class="post-action">
               
                 <a class="post-action-btn btn btn--disabled">
               
-                  <span class="hide-xs hide-sm text-small icon-mr">上一篇</span>
+                  <span class="hide-xs hide-sm text-small icon-mr"></span>
                   <i class="fa fa-angle-right"></i>
                 </a>
             </li>
@@ -469,12 +442,6 @@ ClientWidget<span style="color:#f92672">::~</span>ClientWidget()
           </li>
         
       
-      
-        <li class="post-action">
-          <a class="post-action-btn btn btn--default" href="#disqus_thread">
-            <i class="fa fa-comment-o"></i>
-          </a>
-        </li>
       
       <li class="post-action">
         
@@ -489,16 +456,12 @@ ClientWidget<span style="color:#f92672">::~</span>ClientWidget()
 
             
               
-                <div id="disqus_thread">
-  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-              
             
           </div>
         </article>
         <footer id="footer" class="main-content-wrap">
   <span class="copyrights">
-    &copy; 2021 WYF. All Rights Reserved
+    &copy; 2021 Firstname Lastname. 
   </span>
 </footer>
 
@@ -511,17 +474,17 @@ ClientWidget<span style="color:#f92672">::~</span>ClientWidget()
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="https://whyzzd.github.io/2021/07/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E6%80%81%E7%9A%84%E8%81%8C%E5%B7%A5%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%B7%AF%E5%8F%8A%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" data-tooltip="基于多态的职工管理系统的思路及源码分析">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/07/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E6%80%81%E7%9A%84%E8%81%8C%E5%B7%A5%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%B7%AF%E5%8F%8A%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" data-tooltip="基于多态的职工管理系统的思路及源码分析">
               
                   <i class="fa fa-angle-left"></i>
-                  <span class="hide-xs hide-sm text-small icon-ml">下一篇</span>
+                  <span class="hide-xs hide-sm text-small icon-ml"></span>
                 </a>
             </li>
             <li class="post-action">
               
                 <a class="post-action-btn btn btn--disabled">
               
-                  <span class="hide-xs hide-sm text-small icon-mr">上一篇</span>
+                  <span class="hide-xs hide-sm text-small icon-mr"></span>
                   <i class="fa fa-angle-right"></i>
                 </a>
             </li>
@@ -555,12 +518,6 @@ ClientWidget<span style="color:#f92672">::~</span>ClientWidget()
           </li>
         
       
-      
-        <li class="post-action">
-          <a class="post-action-btn btn btn--default" href="#disqus_thread">
-            <i class="fa fa-comment-o"></i>
-          </a>
-        </li>
       
       <li class="post-action">
         
@@ -580,19 +537,19 @@ ClientWidget<span style="color:#f92672">::~</span>ClientWidget()
     
       <li class="share-option">
         <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwhyzzd.github.io%2F2021%2F07%2F%25E5%259F%25BA%25E4%25BA%258Eqt%25E7%259A%2584tcp%25E7%25AE%2580%25E5%258D%2595%25E9%2580%259A%25E4%25BF%25A1%25E7%25A4%25BA%25E6%2584%258F%25E5%259B%25BE%25E5%258F%258A%25E4%25BB%25A3%25E7%25A0%2581%25E5%25AE%259E%25E7%258E%25B0%2F">
-          <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+          <i class="fa fa-facebook-official"></i><span>%!(EXTRA string=Facebook)</span>
         </a>
       </li>
     
       <li class="share-option">
         <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fwhyzzd.github.io%2F2021%2F07%2F%25E5%259F%25BA%25E4%25BA%258Eqt%25E7%259A%2584tcp%25E7%25AE%2580%25E5%258D%2595%25E9%2580%259A%25E4%25BF%25A1%25E7%25A4%25BA%25E6%2584%258F%25E5%259B%25BE%25E5%258F%258A%25E4%25BB%25A3%25E7%25A0%2581%25E5%25AE%259E%25E7%258E%25B0%2F">
-          <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+          <i class="fa fa-twitter"></i><span>%!(EXTRA string=Twitter)</span>
         </a>
       </li>
     
       <li class="share-option">
         <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fwhyzzd.github.io%2F2021%2F07%2F%25E5%259F%25BA%25E4%25BA%258Eqt%25E7%259A%2584tcp%25E7%25AE%2580%25E5%258D%2595%25E9%2580%259A%25E4%25BF%25A1%25E7%25A4%25BA%25E6%2584%258F%25E5%259B%25BE%25E5%258F%258A%25E4%25BB%25A3%25E7%25A0%2581%25E5%25AE%259E%25E7%258E%25B0%2F">
-          <i class="fa fa-google-plus"></i><span>分享到 Google&#43;</span>
+          <i class="fa fa-google-plus"></i><span>%!(EXTRA string=Google&#43;)</span>
         </a>
       </li>
     
@@ -607,9 +564,9 @@ ClientWidget<span style="color:#f92672">::~</span>ClientWidget()
       <i class="fa fa-remove"></i>
     </div>
     
-      <img id="about-card-picture" src="https://www.gravatar.com/avatar/e39fcc4370dae2618625d4ab9f7d8a30?s=110" alt="作者的图片" />
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/d09dc2d7aa5c467519e8af89f7b3d94c?s=110" alt="" />
     
-    <h4 id="about-card-name">WYF</h4>
+    <h4 id="about-card-name">Firstname Lastname</h4>
     
       <div id="about-card-bio">Super bio with markdown support <strong>COOL</strong></div>
     
@@ -648,7 +605,7 @@ ClientWidget<span style="color:#f92672">::~</span>ClientWidget()
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
 
 
-<script src="https://whyzzd.github.io/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+<script src="/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
 
 
 <script lang="javascript">
@@ -680,28 +637,6 @@ $(document).ready(function() {
 
 
   
-    
-      <script>
-        var disqus_config = function () {
-          this.page.url = 'https:\/\/whyzzd.github.io\/2021\/07\/%E5%9F%BA%E4%BA%8Eqt%E7%9A%84tcp%E7%AE%80%E5%8D%95%E9%80%9A%E4%BF%A1%E7%A4%BA%E6%84%8F%E5%9B%BE%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0\/';
-          
-            this.page.identifier = '\/2021\/07\/%E5%9F%BA%E4%BA%8Eqt%E7%9A%84tcp%E7%AE%80%E5%8D%95%E9%80%9A%E4%BF%A1%E7%A4%BA%E6%84%8F%E5%9B%BE%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0\/'
-          
-        };
-        (function() {
-          
-          
-          if (window.location.hostname == "localhost") {
-            return;
-          }
-          var d = document, s = d.createElement('script');
-          var disqus_shortname = 'hugo-tranquilpeak-theme';
-          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-
-          s.setAttribute('data-timestamp', +new Date());
-          (d.head || d.body).appendChild(s);
-        })();
-      </script>
     
   
 

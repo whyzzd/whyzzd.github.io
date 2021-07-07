@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.84.3 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="WYF">
+<meta name="keywords" content="">
+<meta name="description" content="本文将大致介绍SimNotePad的设计思路以及在这个过程中遇到的困难和如何去解决的，对于某些关键点我会详细的说明，源码和打包好的作品见文末链接。
+一、项目展示 1.界面展示 界面比较简约，默认情况下是没有像Notepad会直接新建一个无名文件，需要手动新建。
+2.功能模块展示(gif动图) 新建文件
+打开文件
+保存文件
+如果文件未命名那么保存需要指定保存的路径和文件名，如果在已有文件名的基础上保存那么可直接保存至对应的文件。
+另存为
+编码格式测试
+同一种格式的文件利用不同的格式打开效果不一样，第二次设置编码格式后显示了乱码。
+关闭文档测试
+其它功能展示
+二、结构分析 1.目录结构 2.主要的类及对象之间的关系 三、源码分析 由于篇幅有限，所以这里就只放了头文件
+mainwindow.h:
+#ifndef MAINWINDOW_H #define MAINWINDOW_H #include &lt;QMainWindow&gt;#include&lt;QLabel&gt;#include&#34;subtext.h&#34;QT_BEGIN_NAMESPACE namespace Ui { class MainWindow; } QT_END_NAMESPACE class MainWindow : public QMainWindow { Q_OBJECT public: MainWindow(QWidget *parent = nullptr); ~MainWindow(); void init(); void closeEvent(QCloseEvent *event); private slots: //槽函数看着很多，但是实际写好其中的几个，其它的都差不多了  void initNewAndOpen(SubText*); void doProcessTriggeredByNew(bool); void doProcessTriggeredByOpen(bool); void doProcessTriggeredByUTF_8(bool); void doProcessTriggeredByGB2312(bool); void doProcessTriggerByExit(bool); void doProcessTriggerBySave(bool); void doProcessTriggerBySaveAs(bool); void doProcessTriggerByClose(bool); void doProcessTriggerByCloseAll(bool); void doProcessTriggerByTile(bool); void doProcessTriggerByCascade(bool); void doProcessTriggerByNext(bool); void doProcessTriggerByPrevious(bool); void doProcessTriggerByAbout(bool); void doProcessTriggerByAboutQt(bool); void doProcessTriggerByRedo(bool); void doProcessTriggerByUndo(bool); void doProcessTriggerByCut(bool); void doProcessTriggerByCopy(bool); void doProcessTriggerByParse(bool); private: Ui::MainWindow *ui; QString codeName; QLabel *m_CodeName; QLabel *m_CursorPositionLines; QLabel *m_CursorPositionCol; }; #endif // MAINWINDOW_H subtext.">
+
+
+<meta property="og:description" content="本文将大致介绍SimNotePad的设计思路以及在这个过程中遇到的困难和如何去解决的，对于某些关键点我会详细的说明，源码和打包好的作品见文末链接。
+一、项目展示 1.界面展示 界面比较简约，默认情况下是没有像Notepad会直接新建一个无名文件，需要手动新建。
+2.功能模块展示(gif动图) 新建文件
+打开文件
+保存文件
+如果文件未命名那么保存需要指定保存的路径和文件名，如果在已有文件名的基础上保存那么可直接保存至对应的文件。
+另存为
+编码格式测试
+同一种格式的文件利用不同的格式打开效果不一样，第二次设置编码格式后显示了乱码。
+关闭文档测试
+其它功能展示
+二、结构分析 1.目录结构 2.主要的类及对象之间的关系 三、源码分析 由于篇幅有限，所以这里就只放了头文件
+mainwindow.h:
+#ifndef MAINWINDOW_H #define MAINWINDOW_H #include &lt;QMainWindow&gt;#include&lt;QLabel&gt;#include&#34;subtext.h&#34;QT_BEGIN_NAMESPACE namespace Ui { class MainWindow; } QT_END_NAMESPACE class MainWindow : public QMainWindow { Q_OBJECT public: MainWindow(QWidget *parent = nullptr); ~MainWindow(); void init(); void closeEvent(QCloseEvent *event); private slots: //槽函数看着很多，但是实际写好其中的几个，其它的都差不多了  void initNewAndOpen(SubText*); void doProcessTriggeredByNew(bool); void doProcessTriggeredByOpen(bool); void doProcessTriggeredByUTF_8(bool); void doProcessTriggeredByGB2312(bool); void doProcessTriggerByExit(bool); void doProcessTriggerBySave(bool); void doProcessTriggerBySaveAs(bool); void doProcessTriggerByClose(bool); void doProcessTriggerByCloseAll(bool); void doProcessTriggerByTile(bool); void doProcessTriggerByCascade(bool); void doProcessTriggerByNext(bool); void doProcessTriggerByPrevious(bool); void doProcessTriggerByAbout(bool); void doProcessTriggerByAboutQt(bool); void doProcessTriggerByRedo(bool); void doProcessTriggerByUndo(bool); void doProcessTriggerByCut(bool); void doProcessTriggerByCopy(bool); void doProcessTriggerByParse(bool); private: Ui::MainWindow *ui; QString codeName; QLabel *m_CodeName; QLabel *m_CursorPositionLines; QLabel *m_CursorPositionCol; }; #endif // MAINWINDOW_H subtext.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Qt项目 多文档编辑器SimNotePad">
+<meta name="twitter:title" content="Qt项目 多文档编辑器SimNotePad">
+<meta property="og:url" content="https://whyzzd.github.io/2021/07/qt%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E6%96%87%E6%A1%A3%E7%BC%96%E8%BE%91%E5%99%A8simnotepad/">
+<meta property="twitter:url" content="https://whyzzd.github.io/2021/07/qt%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E6%96%87%E6%A1%A3%E7%BC%96%E8%BE%91%E5%99%A8simnotepad/">
+<meta property="og:site_name" content="">
+<meta property="og:description" content="本文将大致介绍SimNotePad的设计思路以及在这个过程中遇到的困难和如何去解决的，对于某些关键点我会详细的说明，源码和打包好的作品见文末链接。
+一、项目展示 1.界面展示 界面比较简约，默认情况下是没有像Notepad会直接新建一个无名文件，需要手动新建。
+2.功能模块展示(gif动图) 新建文件
+打开文件
+保存文件
+如果文件未命名那么保存需要指定保存的路径和文件名，如果在已有文件名的基础上保存那么可直接保存至对应的文件。
+另存为
+编码格式测试
+同一种格式的文件利用不同的格式打开效果不一样，第二次设置编码格式后显示了乱码。
+关闭文档测试
+其它功能展示
+二、结构分析 1.目录结构 2.主要的类及对象之间的关系 三、源码分析 由于篇幅有限，所以这里就只放了头文件
+mainwindow.h:
+#ifndef MAINWINDOW_H #define MAINWINDOW_H #include &lt;QMainWindow&gt;#include&lt;QLabel&gt;#include&#34;subtext.h&#34;QT_BEGIN_NAMESPACE namespace Ui { class MainWindow; } QT_END_NAMESPACE class MainWindow : public QMainWindow { Q_OBJECT public: MainWindow(QWidget *parent = nullptr); ~MainWindow(); void init(); void closeEvent(QCloseEvent *event); private slots: //槽函数看着很多，但是实际写好其中的几个，其它的都差不多了  void initNewAndOpen(SubText*); void doProcessTriggeredByNew(bool); void doProcessTriggeredByOpen(bool); void doProcessTriggeredByUTF_8(bool); void doProcessTriggeredByGB2312(bool); void doProcessTriggerByExit(bool); void doProcessTriggerBySave(bool); void doProcessTriggerBySaveAs(bool); void doProcessTriggerByClose(bool); void doProcessTriggerByCloseAll(bool); void doProcessTriggerByTile(bool); void doProcessTriggerByCascade(bool); void doProcessTriggerByNext(bool); void doProcessTriggerByPrevious(bool); void doProcessTriggerByAbout(bool); void doProcessTriggerByAboutQt(bool); void doProcessTriggerByRedo(bool); void doProcessTriggerByUndo(bool); void doProcessTriggerByCut(bool); void doProcessTriggerByCopy(bool); void doProcessTriggerByParse(bool); private: Ui::MainWindow *ui; QString codeName; QLabel *m_CodeName; QLabel *m_CursorPositionLines; QLabel *m_CursorPositionCol; }; #endif // MAINWINDOW_H subtext.">
+<meta name="twitter:description" content="本文将大致介绍SimNotePad的设计思路以及在这个过程中遇到的困难和如何去解决的，对于某些关键点我会详细的说明，源码和打包好的作品见文末链接。
+一、项目展示 1.界面展示 界面比较简约，默认情况下是没有像Notepad会直接新建一个无名文件，需要手动新建。
+2.功能模块展示(gif动图) 新建文件
+打开文件
+保存文件
+如果文件未命名那么保存需要指定保存的路径和文件名，如果在已有文件名的基础上保存那么可直接保存至对应的文件。
+另存为
+编码格式测试
+同一种格式的文件利用不同的格式打开效果不一样，第二次设置编码格式后显示了乱码。
+关闭文档测试
+其它功能展示
+二、结构分析 1.目录结构 2.主要的类及对象之间的关系 三、源码分析 由于篇幅有限，所以这里就只放了头文件
+mainwindow.h:
+#ifndef MAINWINDOW_H #define MAINWINDOW_H #include &lt;QMainWindow&gt;#include&lt;QLabel&gt;#include&#34;subtext.h&#34;QT_BEGIN_NAMESPACE namespace Ui { class MainWindow; } QT_END_NAMESPACE class MainWindow : public QMainWindow { Q_OBJECT public: MainWindow(QWidget *parent = nullptr); ~MainWindow(); void init(); void closeEvent(QCloseEvent *event); private slots: //槽函数看着很多，但是实际写好其中的几个，其它的都差不多了  void initNewAndOpen(SubText*); void doProcessTriggeredByNew(bool); void doProcessTriggeredByOpen(bool); void doProcessTriggeredByUTF_8(bool); void doProcessTriggeredByGB2312(bool); void doProcessTriggerByExit(bool); void doProcessTriggerBySave(bool); void doProcessTriggerBySaveAs(bool); void doProcessTriggerByClose(bool); void doProcessTriggerByCloseAll(bool); void doProcessTriggerByTile(bool); void doProcessTriggerByCascade(bool); void doProcessTriggerByNext(bool); void doProcessTriggerByPrevious(bool); void doProcessTriggerByAbout(bool); void doProcessTriggerByAboutQt(bool); void doProcessTriggerByRedo(bool); void doProcessTriggerByUndo(bool); void doProcessTriggerByCut(bool); void doProcessTriggerByCopy(bool); void doProcessTriggerByParse(bool); private: Ui::MainWindow *ui; QString codeName; QLabel *m_CodeName; QLabel *m_CursorPositionLines; QLabel *m_CursorPositionCol; }; #endif // MAINWINDOW_H subtext.">
+<meta property="og:locale" content="en">
+
+  
+    <meta property="article:published_time" content="2021-07-08T00:11:15">
+  
+  
+    <meta property="article:modified_time" content="2021-07-08T00:11:15">
+  
+  
+  
+    
+      <meta property="article:section" content="技术分享">
+    
+  
+  
+    
+      <meta property="article:tag" content="文本编辑器">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://whyzzd.github.io/images/a.JPG">
+  <meta property="twitter:image" content="https://whyzzd.github.io/images/a.JPG">
+
+
+    <title>Qt项目 多文档编辑器SimNotePad</title>
+
+    <link rel="icon" href="/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://whyzzd.github.io/2021/07/qt%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E6%96%87%E6%A1%A3%E7%BC%96%E8%BE%91%E5%99%A8simnotepad/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="1">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/"></a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://whyzzd.github.io/images/a.JPG" alt="" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="1">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="https://whyzzd.github.io/images/a.JPG" alt="" />
+        </a>
+        <h4 class="sidebar-profile-name">WYF</h4>
+        
+          <h5 class="sidebar-profile-bio">一个正在奋斗的小青年</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">主页</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">分类</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">标签</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">档案</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">关于</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/whyzzd" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="1"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Qt项目 多文档编辑器SimNotePad
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2021-07-08T00:11:15&#43;08:00">
+        
+  
+  
+  
+  
+    2021年7月8日
+  
+
+      </time>
+    
+    
+  
+  
+    <span></span>
+    
+      <a class="category-link" href="/categories/%e6%8a%80%e6%9c%af%e5%88%86%e4%ba%ab">技术分享</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>本文将大致介绍SimNotePad的设计思路以及在这个过程中遇到的困难和如何去解决的，对于某些关键点我会详细的说明，源码和打包好的作品见文末链接。</p>
+<h3 id="一项目展示">一、项目展示</h3>
+<h4 id="1界面展示">1.界面展示</h4>
+<p>界面比较简约，默认情况下是没有像Notepad会直接新建一个无名文件，需要手动新建。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/image-20210705011616102.png" alt="image-20210705011616102"  /></p>
+<h4 id="2功能模块展示gif动图">2.功能模块展示(gif动图)</h4>
+<p><strong>新建文件</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/GIF 2021-7-5 1-23-11.gif" alt="GIF 2021-7-5 1-23-11"  /></p>
+<p><strong>打开文件</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/打开文件.gif" alt="打开文件" style="zoom: 67%;" /></p>
+<p><strong>保存文件</strong></p>
+<p>如果文件未命名那么保存需要指定保存的路径和文件名，如果在已有文件名的基础上保存那么可直接保存至对应的文件。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/保存测试.gif" alt="保存测试" style="zoom: 67%;" /></p>
+<p><strong>另存为</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/另存为.gif" alt="另存为" style="zoom: 67%;" /></p>
+<p><strong>编码格式测试</strong></p>
+<p>同一种格式的文件利用不同的格式打开效果不一样，第二次设置编码格式后显示了乱码。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/编码格式测试.gif" alt="编码格式测试" style="zoom: 67%;" /></p>
+<p><strong>关闭文档测试</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/关闭文档测试.gif" alt="关闭文档测试" style="zoom:67%;" /></p>
+<p><strong>其它功能展示</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/其它功能展示.gif" alt="其它功能展示" style="zoom:67%;" /></p>
+<h3 id="二结构分析">二、结构分析</h3>
+<h4 id="1目录结构">1.目录结构</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/image-20210705022947026.png" alt="image-20210705022947026" style="zoom:80%;" /></p>
+<h4 id="2主要的类及对象之间的关系">2.主要的类及对象之间的关系</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/image-20210705030738390.png" alt="image-20210705030738390" style="zoom:80%;" /></p>
+<h3 id="三源码分析">三、源码分析</h3>
+<p>由于篇幅有限，所以这里就只放了头文件</p>
+<p><strong>mainwindow.h:</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#ifndef MAINWINDOW_H
+</span><span style="color:#75715e">#define MAINWINDOW_H
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;QMainWindow&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;QLabel&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&#34;subtext.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>QT_BEGIN_NAMESPACE
+<span style="color:#66d9ef">namespace</span> Ui { <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainWindow</span>; }
+QT_END_NAMESPACE
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainWindow</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> QMainWindow
+{
+    Q_OBJECT
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    MainWindow(QWidget <span style="color:#f92672">*</span>parent <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>);
+    <span style="color:#f92672">~</span>MainWindow();
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init</span>();
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">closeEvent</span>(QCloseEvent <span style="color:#f92672">*</span>event);
+<span style="color:#66d9ef">private</span> slots:
+    <span style="color:#75715e">//槽函数看着很多，但是实际写好其中的几个，其它的都差不多了
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">void</span> initNewAndOpen(SubText<span style="color:#f92672">*</span>);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doProcessTriggeredByNew</span>(<span style="color:#66d9ef">bool</span>);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doProcessTriggeredByOpen</span>(<span style="color:#66d9ef">bool</span>);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doProcessTriggeredByUTF_8</span>(<span style="color:#66d9ef">bool</span>);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doProcessTriggeredByGB2312</span>(<span style="color:#66d9ef">bool</span>);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doProcessTriggerByExit</span>(<span style="color:#66d9ef">bool</span>);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doProcessTriggerBySave</span>(<span style="color:#66d9ef">bool</span>);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doProcessTriggerBySaveAs</span>(<span style="color:#66d9ef">bool</span>);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doProcessTriggerByClose</span>(<span style="color:#66d9ef">bool</span>);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doProcessTriggerByCloseAll</span>(<span style="color:#66d9ef">bool</span>);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doProcessTriggerByTile</span>(<span style="color:#66d9ef">bool</span>);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doProcessTriggerByCascade</span>(<span style="color:#66d9ef">bool</span>);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doProcessTriggerByNext</span>(<span style="color:#66d9ef">bool</span>);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doProcessTriggerByPrevious</span>(<span style="color:#66d9ef">bool</span>);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doProcessTriggerByAbout</span>(<span style="color:#66d9ef">bool</span>);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doProcessTriggerByAboutQt</span>(<span style="color:#66d9ef">bool</span>);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doProcessTriggerByRedo</span>(<span style="color:#66d9ef">bool</span>);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doProcessTriggerByUndo</span>(<span style="color:#66d9ef">bool</span>);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doProcessTriggerByCut</span>(<span style="color:#66d9ef">bool</span>);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doProcessTriggerByCopy</span>(<span style="color:#66d9ef">bool</span>);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doProcessTriggerByParse</span>(<span style="color:#66d9ef">bool</span>);
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    Ui<span style="color:#f92672">::</span>MainWindow <span style="color:#f92672">*</span>ui;
+    QString codeName;
+    QLabel <span style="color:#f92672">*</span>m_CodeName;
+    QLabel <span style="color:#f92672">*</span>m_CursorPositionLines;
+    QLabel <span style="color:#f92672">*</span>m_CursorPositionCol;
+};
+<span style="color:#75715e">#endif </span><span style="color:#75715e">// MAINWINDOW_H
+</span></code></pre></div><p><strong>subtext.h:</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#ifndef SUBTEXT_H
+</span><span style="color:#75715e">#define SUBTEXT_H
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;QWidget&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;QPlainTextEdit&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;QFile&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;QMenu&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;QMdiSubWindow&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;QVector&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">//-----------------------------
+</span><span style="color:#75715e"></span>QT_BEGIN_NAMESPACE
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">QPaintEvent</span>;
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">QResizeEvent</span>;
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">QSize</span>;
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">QWidget</span>;
+QT_END_NAMESPACE
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LineNumberArea</span>;
+<span style="color:#75715e">//--------------------------------
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SubText</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> QPlainTextEdit
+{
+    Q_OBJECT
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">explicit</span> SubText(QWidget <span style="color:#f92672">*</span>parent <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>);
+
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">NewFile</span>();
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">OpenFile</span>();
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setMyCode</span>(<span style="color:#66d9ef">const</span> QString code);
+
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">SaveFile</span>();
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">SaveFileAs</span>();
+
+    <span style="color:#75715e">//文件是否打开成功
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">bool</span> fileIsTrOper;
+    <span style="color:#75715e">//是否存在还在编辑的文件
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> hasEdit;
+    <span style="color:#75715e">//记录正在编辑的文件个数
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> nEdit;
+    <span style="color:#75715e">//记录累加的值是0还是1
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> n;
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">closeEvent</span>(QCloseEvent <span style="color:#f92672">*</span>e);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">contextMenuEvent</span>(QContextMenuEvent <span style="color:#f92672">*</span>e) ;
+    <span style="color:#75715e">//重写鼠标事件，当鼠标点击时触发光标位置改变
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">mousePressEvent</span>(QMouseEvent <span style="color:#f92672">*</span>e);
+<span style="color:#66d9ef">public</span> slots:
+    <span style="color:#66d9ef">void</span> dealpaste(QMdiSubWindow <span style="color:#f92672">*</span>);
+signals:
+<span style="color:#66d9ef">private</span> slots:
+    <span style="color:#66d9ef">void</span> doProcessContentsChanged();
+    <span style="color:#75715e">//处理粘贴事件
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    QString fileName;
+    QFile <span style="color:#f92672">*</span>myfile;
+    QString codeName;
+    <span style="color:#66d9ef">bool</span> isEdit;
+    <span style="color:#66d9ef">int</span> nonameN;
+    <span style="color:#75715e">//实现按顺序新增未命名编号
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">static</span> QVector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span>v;
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> number;
+<span style="color:#75715e">//----------------------^------------------------------
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> lineNumberAreaPaintEvent(QPaintEvent <span style="color:#f92672">*</span>event);
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">lineNumberAreaWidth</span>();
+
+<span style="color:#66d9ef">protected</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> resizeEvent(QResizeEvent <span style="color:#f92672">*</span>event) <span style="color:#66d9ef">override</span>;
+
+<span style="color:#66d9ef">private</span> slots:
+    <span style="color:#66d9ef">void</span> updateLineNumberAreaWidth(<span style="color:#66d9ef">int</span> newBlockCount);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">highlightCurrentLine</span>();
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">updateLineNumberArea</span>(<span style="color:#66d9ef">const</span> QRect <span style="color:#f92672">&amp;</span>, <span style="color:#66d9ef">int</span>);
+
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#75715e">//指向行号区间的指针
+</span><span style="color:#75715e"></span>    QWidget <span style="color:#f92672">*</span>lineNumberArea;
+<span style="color:#75715e">//----------------------v--------------------------------
+</span><span style="color:#75715e"></span>};
+
+<span style="color:#75715e">//-----------------------^---------------------------------
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LineNumberArea</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> QWidget
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    LineNumberArea(SubText <span style="color:#f92672">*</span>editor) <span style="color:#f92672">:</span> QWidget(editor) {
+        codeEditor <span style="color:#f92672">=</span> editor;
+    }
+
+    QSize <span style="color:#a6e22e">sizeHint</span>() <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">override</span> {
+        <span style="color:#66d9ef">return</span> QSize(codeEditor<span style="color:#f92672">-&gt;</span>lineNumberAreaWidth(), <span style="color:#ae81ff">0</span>);
+    }
+
+<span style="color:#66d9ef">protected</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> paintEvent(QPaintEvent <span style="color:#f92672">*</span>event) <span style="color:#66d9ef">override</span> {
+        codeEditor<span style="color:#f92672">-&gt;</span>lineNumberAreaPaintEvent(event);
+    }
+
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    SubText <span style="color:#f92672">*</span>codeEditor;
+};
+<span style="color:#75715e">#endif </span><span style="color:#75715e">// SUBTEXT_H
+</span></code></pre></div><h3 id="四一些遇到的问题以及解决措施">四、一些遇到的问题以及解决措施</h3>
+<p><strong>在多种情况下关闭的操作逻辑</strong></p>
+<p>尤其是比较特殊的情况，当只要有一个文件未保存，那么程序就不能直接退出，需要等待用户点击相应的按钮，这里使用了全局静态变量进行控制(详情去看源代码)</p>
+<p><strong>一个小细节地方的处理</strong></p>
+<p>可以发现在新建文件时，或者关闭新建文件时(未修改状态)，所有新建文件名后面的序号都是尽可能的变成连续的自然数(如原来有1、2、3三个文件，如果关闭2，再新建一个文件，那么序号是还是2，没经过处理之前新建文件会是4)，这一过程中所用到的方法是引入了一个静态vector容器用来存放对应的序号以及状态。</p>
+<p><strong>集成行号显示和行高亮模块</strong></p>
+<p>阅读源码，调试，集成。</p>
+<p><strong>对象之间通信的问题</strong></p>
+<p>利用静态变量，或者信号与槽，加深了对信号和槽及lambda表达式的理解和使用。</p>
+<p><strong>MDI Area容器默认的显示视图比较难看，想进行调整</strong></p>
+<p>通过查找官方的API文档和使用搜索引擎查找到了对应的函数和用法最后改变了视图显示，当然，其它还有很多地方也是以这种方式。</p>
+<p><strong>UI界面的设计</strong></p>
+<p>这里也是参照NotePad的外观进行设计，但是NotePad不是使用qt开发的，所以只能看看了外观了，很多地方只能自己尝试了，在此过程中也新学了不少的控件属性的设置方法。</p>
+<h3 id="五总结">五、总结</h3>
+<p>总的来说，这个软件可以满足日常的简单使用，比起windows自带的文本编辑器体验感要好得多，当然，在软件中还存在一些bug，例如可以多次打开同名文件，那么这在实际应用当中是不合理的，另外软件的功能还不够，后续可能还会添加一些新的功能，例如更改字体，字号，增加一些快捷键等等。</p>
+<p>代码写的过程当中也苦恼过，尤其是去想新增功能的时候还有修改bug的时候简直头疼，但是当一瞬间的灵感突然涌现以及通过各种分析排除解决bug的时候，那种喜悦是无与伦比的。</p>
+<p><a href="https://github.com/whyzzd/SimNotePad">源码链接</a></p>
+<p>（欢迎各位给项目pr或者issue哟）</p>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small"></span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/tags/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/">文本编辑器</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml"></span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/07/%E4%BD%BF%E7%94%A8qt%E5%AE%98%E6%96%B9%E7%94%9F%E6%88%90%E5%AE%89%E8%A3%85%E5%8C%85%E5%B7%A5%E5%85%B7/" data-tooltip="使用qt官方生成安装包工具">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr"></span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://whyzzd.github.io/2021/07/qt%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E6%96%87%E6%A1%A3%E7%BC%96%E8%BE%91%E5%99%A8simnotepad/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://whyzzd.github.io/2021/07/qt%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E6%96%87%E6%A1%A3%E7%BC%96%E8%BE%91%E5%99%A8simnotepad/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://whyzzd.github.io/2021/07/qt%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E6%96%87%E6%A1%A3%E7%BC%96%E8%BE%91%E5%99%A8simnotepad/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2021 <a href="https://github.com/whyzzd">WYF</a>. 
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="1">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml"></span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/07/%E4%BD%BF%E7%94%A8qt%E5%AE%98%E6%96%B9%E7%94%9F%E6%88%90%E5%AE%89%E8%A3%85%E5%8C%85%E5%B7%A5%E5%85%B7/" data-tooltip="使用qt官方生成安装包工具">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr"></span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://whyzzd.github.io/2021/07/qt%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E6%96%87%E6%A1%A3%E7%BC%96%E8%BE%91%E5%99%A8simnotepad/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://whyzzd.github.io/2021/07/qt%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E6%96%87%E6%A1%A3%E7%BC%96%E8%BE%91%E5%99%A8simnotepad/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://whyzzd.github.io/2021/07/qt%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E6%96%87%E6%A1%A3%E7%BC%96%E8%BE%91%E5%99%A8simnotepad/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="1">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwhyzzd.github.io%2F2021%2F07%2Fqt%25E9%25A1%25B9%25E7%259B%25AE-%25E5%25A4%259A%25E6%2596%2587%25E6%25A1%25A3%25E7%25BC%2596%25E8%25BE%2591%25E5%2599%25A8simnotepad%2F">
+          <i class="fa fa-facebook-official"></i><span>%!(EXTRA string=Facebook)</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fwhyzzd.github.io%2F2021%2F07%2Fqt%25E9%25A1%25B9%25E7%259B%25AE-%25E5%25A4%259A%25E6%2596%2587%25E6%25A1%25A3%25E7%25BC%2596%25E8%25BE%2591%25E5%2599%25A8simnotepad%2F">
+          <i class="fa fa-twitter"></i><span>%!(EXTRA string=Twitter)</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fwhyzzd.github.io%2F2021%2F07%2Fqt%25E9%25A1%25B9%25E7%259B%25AE-%25E5%25A4%259A%25E6%2596%2587%25E6%25A1%25A3%25E7%25BC%2596%25E8%25BE%2591%25E5%2599%25A8simnotepad%2F">
+          <i class="fa fa-google-plus"></i><span>%!(EXTRA string=Google&#43;)</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://whyzzd.github.io/images/a.JPG" alt="" />
+    
+    <h4 id="about-card-name">WYF</h4>
+    
+      <div id="about-card-bio">一个正在奋斗的小青年</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        无更多
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        武汉
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://whyzzd.github.io/images/b.JPG');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+

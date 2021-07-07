@@ -5,7 +5,31 @@
     <link>https://whyzzd.github.io/categories/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/</link>
     <description>Recent content in 安装教程 on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 02 Jul 2021 16:48:36 +0800</lastBuildDate><atom:link href="https://whyzzd.github.io/categories/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Jul 2021 00:10:43 +0800</lastBuildDate><atom:link href="https://whyzzd.github.io/categories/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用qt官方生成安装包工具</title>
+      <link>https://whyzzd.github.io/2021/07/%E4%BD%BF%E7%94%A8qt%E5%AE%98%E6%96%B9%E7%94%9F%E6%88%90%E5%AE%89%E8%A3%85%E5%8C%85%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Thu, 08 Jul 2021 00:10:43 +0800</pubDate>
+      
+      <guid>https://whyzzd.github.io/2021/07/%E4%BD%BF%E7%94%A8qt%E5%AE%98%E6%96%B9%E7%94%9F%E6%88%90%E5%AE%89%E8%A3%85%E5%8C%85%E5%B7%A5%E5%85%B7/</guid>
+      <description>使用qt官方生成安装包工具
+生成安装包的核心命令 在C:\Qt\QtIFW-4.1.1\examples\tutorial下输入
+C:\Qt\QtIFW-4.1.1\bin\binarycreator.exe --offline-only -t C:\Qt\QtIFW-4.1.1\bin\installerbase.exe -c config\config.xml -p packages NotePad.exe
+具体过程参考博文：
+https://www.jianshu.com/p/039632e5f924</description>
+    </item>
+    
+    <item>
+      <title>Qt使用MySql数据库</title>
+      <link>https://whyzzd.github.io/2021/07/qt%E4%BD%BF%E7%94%A8mysql%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <pubDate>Thu, 08 Jul 2021 00:10:09 +0800</pubDate>
+      
+      <guid>https://whyzzd.github.io/2021/07/qt%E4%BD%BF%E7%94%A8mysql%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <description>在qt上使用MySql的注意事项
+1.MySql创建库，创建表，插入，以及查找命令 2.安装过程中注意事项 在qt5.12以上中使用mysql除了按照https://www.codenong.com/cs106561773/这上面做完之后，接着在MySql的安装中(例：C:\Program Files\MySQL\MySQL Server 5.7\lib)复制一份libmysql.dll到qt的安装目录下(例：D:\Qt\Qt5.12.10\5.12.10\mingw73_64\bin)再使用程序不会报错。
+实例代码请参考：demo</description>
+    </item>
+    
     <item>
       <title>MacOs使用hugo、github搭建个人博客</title>
       <link>https://whyzzd.github.io/2021/07/macos%E4%BD%BF%E7%94%A8hugogithub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</link>

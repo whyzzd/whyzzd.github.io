@@ -205,6 +205,80 @@
     
     <div class="postShorten-header">
       <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="https://whyzzd.github.io/2021/07/qt%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E6%96%87%E6%A1%A3%E7%BC%96%E8%BE%91%E5%99%A8simnotepad/">
+          Qt项目 多文档编辑器SimNotePad
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2021-07-08T00:11:15&#43;08:00">
+        
+  
+  
+  
+  
+    2021年7月8日
+  
+
+      </time>
+    
+    
+  
+  
+    <span></span>
+    
+      <a class="category-link" href="/categories/%e6%8a%80%e6%9c%af%e5%88%86%e4%ba%ab">技术分享</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      
+        本文将大致介绍SimNotePad的设计思路以及在这个过程中遇到的困难和如何去解决的，对于某些关键点我会详细的说明，源码和打包好的作品见文末链接。
+一、项目展示 1.界面展示 界面比较简约，默认情况下是没有像Notepad会直接新建一个无名文件，需要手动新建。
+2.功能模块展示(gif动图) 新建文件
+打开文件
+保存文件
+如果文件未命名那么保存需要指定保存的路径和文件名，如果在已有文件名的基础上保存那么可直接保存至对应的文件。
+另存为
+编码格式测试
+同一种格式的文件利用不同的格式打开效果不一样，第二次设置编码格式后显示了乱码。
+关闭文档测试
+其它功能展示
+二、结构分析 1.目录结构 2.主要的类及对象之间的关系 三、源码分析 由于篇幅有限，所以这里就只放了头文件
+mainwindow.h:
+#ifndef MAINWINDOW_H #define MAINWINDOW_H #include &lt;QMainWindow&gt;#include&lt;QLabel&gt;#include&#34;subtext.h&#34;QT_BEGIN_NAMESPACE namespace Ui { class MainWindow; } QT_END_NAMESPACE class MainWindow : public QMainWindow { Q_OBJECT public: MainWindow(QWidget *parent = nullptr); ~MainWindow(); void init(); void closeEvent(QCloseEvent *event); private slots: //槽函数看着很多，但是实际写好其中的几个，其它的都差不多了  void initNewAndOpen(SubText*); void doProcessTriggeredByNew(bool); void doProcessTriggeredByOpen(bool); void doProcessTriggeredByUTF_8(bool); void doProcessTriggeredByGB2312(bool); void doProcessTriggerByExit(bool); void doProcessTriggerBySave(bool); void doProcessTriggerBySaveAs(bool); void doProcessTriggerByClose(bool); void doProcessTriggerByCloseAll(bool); void doProcessTriggerByTile(bool); void doProcessTriggerByCascade(bool); void doProcessTriggerByNext(bool); void doProcessTriggerByPrevious(bool); void doProcessTriggerByAbout(bool); void doProcessTriggerByAboutQt(bool); void doProcessTriggerByRedo(bool); void doProcessTriggerByUndo(bool); void doProcessTriggerByCut(bool); void doProcessTriggerByCopy(bool); void doProcessTriggerByParse(bool); private: Ui::MainWindow *ui; QString codeName; QLabel *m_CodeName; QLabel *m_CursorPositionLines; QLabel *m_CursorPositionCol; }; #endif // MAINWINDOW_H subtext.
+      
+      <p>
+        <a href="https://whyzzd.github.io/2021/07/qt%E9%A1%B9%E7%9B%AE-%E5%A4%9A%E6%96%87%E6%A1%A3%E7%BC%96%E8%BE%91%E5%99%A8simnotepad/" class="postShorten-excerpt_link link"></a>
+        
+      </p>
+    </div>
+  </div>
+  
+</article>
+
+            
+              
+  
+    
+      
+        
+      
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
         <a class="link-unstyled" href="https://whyzzd.github.io/2021/07/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E6%80%81%E7%9A%84%E8%81%8C%E5%B7%A5%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%B7%AF%E5%8F%8A%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">
           基于多态的职工管理系统的思路及源码分析
         </a>

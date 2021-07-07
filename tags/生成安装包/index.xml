@@ -12,11 +12,7 @@
       <pubDate>Thu, 08 Jul 2021 00:10:43 +0800</pubDate>
       
       <guid>https://whyzzd.github.io/2021/07/%E4%BD%BF%E7%94%A8qt%E5%AE%98%E6%96%B9%E7%94%9F%E6%88%90%E5%AE%89%E8%A3%85%E5%8C%85%E5%B7%A5%E5%85%B7/</guid>
-      <description>使用qt官方生成安装包工具
-生成安装包的核心命令 在C:\Qt\QtIFW-4.1.1\examples\tutorial下输入
-C:\Qt\QtIFW-4.1.1\bin\binarycreator.exe --offline-only -t C:\Qt\QtIFW-4.1.1\bin\installerbase.exe -c config\config.xml -p packages NotePad.exe
-具体过程参考博文：
-https://www.jianshu.com/p/039632e5f924</description>
+      <description>&lt;p&gt;使用qt官方生成安装包工具&lt;/p&gt;</description>
     </item>
     
   </channel>

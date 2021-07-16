@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>面试 on </title>
+    <link>https://whyzzd.github.io/categories/%E9%9D%A2%E8%AF%95/</link>
+    <description>Recent content in 面试 on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 16 Jul 2021 21:54:12 +0800</lastBuildDate><atom:link href="https://whyzzd.github.io/categories/%E9%9D%A2%E8%AF%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C&#43;&#43;面试题 定义数组a[]和*a区别</title>
+      <link>https://whyzzd.github.io/2021/07/c-%E9%9D%A2%E8%AF%95%E9%A2%98-%E5%AE%9A%E4%B9%89%E6%95%B0%E7%BB%84a%E5%92%8Ca%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Fri, 16 Jul 2021 21:54:12 +0800</pubDate>
+      
+      <guid>https://whyzzd.github.io/2021/07/c-%E9%9D%A2%E8%AF%95%E9%A2%98-%E5%AE%9A%E4%B9%89%E6%95%B0%E7%BB%84a%E5%92%8Ca%E5%8C%BA%E5%88%AB/</guid>
+      <description>&lt;p&gt;面试可能会遇到这样的问题：&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

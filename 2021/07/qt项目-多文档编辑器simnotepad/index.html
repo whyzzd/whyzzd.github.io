@@ -237,33 +237,15 @@
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>本文将大致介绍SimNotePad的设计思路以及在这个过程中遇到的困难和如何去解决的，对于某些关键点我会详细的说明，源码和打包好的作品见文末链接。</p>
-<h3 id="一项目展示">一、项目展示</h3>
-<h4 id="1界面展示">1.界面展示</h4>
+<h3 id="界面展示">界面展示</h3>
 <p>界面比较简约，默认情况下是没有像Notepad会直接新建一个无名文件，需要手动新建。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/image-20210705011616102.png" alt="image-20210705011616102"  /></p>
-<h4 id="2功能模块展示gif动图">2.功能模块展示(gif动图)</h4>
-<p><strong>新建文件</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/GIF 2021-7-5 1-23-11.gif" alt="GIF 2021-7-5 1-23-11"  /></p>
-<p><strong>打开文件</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/打开文件.gif" alt="打开文件" style="zoom: 67%;" /></p>
-<p><strong>保存文件</strong></p>
-<p>如果文件未命名那么保存需要指定保存的路径和文件名，如果在已有文件名的基础上保存那么可直接保存至对应的文件。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/保存测试.gif" alt="保存测试" style="zoom: 67%;" /></p>
-<p><strong>另存为</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/另存为.gif" alt="另存为" style="zoom: 67%;" /></p>
-<p><strong>编码格式测试</strong></p>
-<p>同一种格式的文件利用不同的格式打开效果不一样，第二次设置编码格式后显示了乱码。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/编码格式测试.gif" alt="编码格式测试" style="zoom: 67%;" /></p>
-<p><strong>关闭文档测试</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/关闭文档测试.gif" alt="关闭文档测试" style="zoom:67%;" /></p>
-<p><strong>其它功能展示</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/其它功能展示.gif" alt="其它功能展示" style="zoom:67%;" /></p>
-<h3 id="二结构分析">二、结构分析</h3>
+<h3 id="一结构分析">一、结构分析</h3>
 <h4 id="1目录结构">1.目录结构</h4>
 <p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/image-20210705022947026.png" alt="image-20210705022947026" style="zoom:80%;" /></p>
 <h4 id="2主要的类及对象之间的关系">2.主要的类及对象之间的关系</h4>
 <p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/image-20210705030738390.png" alt="image-20210705030738390" style="zoom:80%;" /></p>
-<h3 id="三源码分析">三、源码分析</h3>
+<h3 id="二源码分析">二、源码分析</h3>
 <p>由于篇幅有限，所以这里就只放了头文件</p>
 <p><strong>mainwindow.h:</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#ifndef MAINWINDOW_H
@@ -411,19 +393,36 @@ signals:
     SubText <span style="color:#f92672">*</span>codeEditor;
 };
 <span style="color:#75715e">#endif </span><span style="color:#75715e">// SUBTEXT_H
-</span></code></pre></div><h3 id="四一些遇到的问题以及解决措施">四、一些遇到的问题以及解决措施</h3>
-<p><strong>在多种情况下关闭的操作逻辑</strong></p>
+</span></code></pre></div><h3 id="三一些遇到的问题以及解决措施">三、一些遇到的问题以及解决措施</h3>
+<p><strong>1.在多种情况下关闭的操作逻辑</strong></p>
 <p>尤其是比较特殊的情况，当只要有一个文件未保存，那么程序就不能直接退出，需要等待用户点击相应的按钮，这里使用了全局静态变量进行控制(详情去看源代码)</p>
-<p><strong>一个小细节地方的处理</strong></p>
+<p><strong>2.一个小细节地方的处理</strong></p>
 <p>可以发现在新建文件时，或者关闭新建文件时(未修改状态)，所有新建文件名后面的序号都是尽可能的变成连续的自然数(如原来有1、2、3三个文件，如果关闭2，再新建一个文件，那么序号是还是2，没经过处理之前新建文件会是4)，这一过程中所用到的方法是引入了一个静态vector容器用来存放对应的序号以及状态。</p>
-<p><strong>集成行号显示和行高亮模块</strong></p>
+<p><strong>3.集成行号显示和行高亮模块</strong></p>
 <p>阅读源码，调试，集成。</p>
-<p><strong>对象之间通信的问题</strong></p>
+<p><strong>4.对象之间通信的问题</strong></p>
 <p>利用静态变量，或者信号与槽，加深了对信号和槽及lambda表达式的理解和使用。</p>
-<p><strong>MDI Area容器默认的显示视图比较难看，想进行调整</strong></p>
+<p><strong>5.MDI Area容器默认的显示视图比较难看，想进行调整</strong></p>
 <p>通过查找官方的API文档和使用搜索引擎查找到了对应的函数和用法最后改变了视图显示，当然，其它还有很多地方也是以这种方式。</p>
-<p><strong>UI界面的设计</strong></p>
+<p><strong>6.UI界面的设计</strong></p>
 <p>这里也是参照NotePad的外观进行设计，但是NotePad不是使用qt开发的，所以只能看看了外观了，很多地方只能自己尝试了，在此过程中也新学了不少的控件属性的设置方法。</p>
+<h3 id="四项目功能模块展示">四、项目功能模块展示</h3>
+<p><strong>1.新建文件</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/GIF 2021-7-5 1-23-11.gif" alt="GIF 2021-7-5 1-23-11"  /></p>
+<p><strong>2.打开文件</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/打开文件.gif" alt="打开文件" style="zoom: 67%;" /></p>
+<p><strong>3.保存文件</strong></p>
+<p>如果文件未命名那么保存需要指定保存的路径和文件名，如果在已有文件名的基础上保存那么可直接保存至对应的文件。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/保存测试.gif" alt="保存测试" style="zoom: 67%;" /></p>
+<p><strong>4.另存为</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/另存为.gif" alt="另存为" style="zoom: 67%;" /></p>
+<p><strong>5.编码格式测试</strong></p>
+<p>同一种格式的文件利用不同的格式打开效果不一样，第二次设置编码格式后显示了乱码。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/编码格式测试.gif" alt="编码格式测试" style="zoom: 67%;" /></p>
+<p><strong>6.关闭文档测试</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/关闭文档测试.gif" alt="关闭文档测试" style="zoom:67%;" /></p>
+<p><strong>7.其它功能展示</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/其它功能展示.gif" alt="其它功能展示" style="zoom:67%;" /></p>
 <h3 id="五总结">五、总结</h3>
 <p>总的来说，这个软件可以满足日常的简单使用，比起windows自带的文本编辑器体验感要好得多，当然，在软件中还存在一些bug，例如可以多次打开同名文件，那么这在实际应用当中是不合理的，另外软件的功能还不够，后续可能还会添加一些新的功能，例如更改字体，字号，增加一些快捷键等等。</p>
 <p>代码写的过程当中也苦恼过，尤其是去想新增功能的时候还有修改bug的时候简直头疼，但是当一瞬间的灵感突然涌现以及通过各种分析排除解决bug的时候，那种喜悦是无与伦比的。</p>

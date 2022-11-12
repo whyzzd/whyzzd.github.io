@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>virtual，class on </title>
+    <link>https://whyzzd.github.io/tags/virtualclass/</link>
+    <description>Recent content in virtual，class on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 10 Nov 2022 22:53:04 +0800</lastBuildDate><atom:link href="https://whyzzd.github.io/tags/virtualclass/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C&#43;&#43;基类写成虚析构的作用</title>
+      <link>https://whyzzd.github.io/2022/11/c-%E5%9F%BA%E7%B1%BB%E5%86%99%E6%88%90%E8%99%9A%E6%9E%90%E6%9E%84%E7%9A%84%E4%BD%9C%E7%94%A8/</link>
+      <pubDate>Thu, 10 Nov 2022 22:53:04 +0800</pubDate>
+      
+      <guid>https://whyzzd.github.io/2022/11/c-%E5%9F%BA%E7%B1%BB%E5%86%99%E6%88%90%E8%99%9A%E6%9E%90%E6%9E%84%E7%9A%84%E4%BD%9C%E7%94%A8/</guid>
+      <description>&lt;h4 id=&#34;结论&#34;&gt;结论：&lt;/h4&gt;
+&lt;p&gt;虚析构的作用是避免在delete基类指针时，没有执行派生的析构函数从而导致内存泄漏的问题。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

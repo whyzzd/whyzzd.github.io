@@ -8,35 +8,39 @@
 <meta name="generator" content="Hugo 0.84.3 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="WYF">
 <meta name="keywords" content="">
-<meta name="description" content="本文将介绍利用hugo搭建个人博客的关键点以及踩过的坑。">
+<meta name="description" content="结论：
+虚析构的作用是避免在delete基类指针时，没有执行派生的析构函数从而导致内存泄漏的问题。">
 
 
-<meta property="og:description" content="本文将介绍利用hugo搭建个人博客的关键点以及踩过的坑。">
+<meta property="og:description" content="结论：
+虚析构的作用是避免在delete基类指针时，没有执行派生的析构函数从而导致内存泄漏的问题。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MacOs使用hugo、github搭建个人博客">
-<meta name="twitter:title" content="MacOs使用hugo、github搭建个人博客">
-<meta property="og:url" content="https://whyzzd.github.io/2021/07/macos%E4%BD%BF%E7%94%A8hugogithub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
-<meta property="twitter:url" content="https://whyzzd.github.io/2021/07/macos%E4%BD%BF%E7%94%A8hugogithub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+<meta property="og:title" content="C&#43;&#43;基类写成虚析构的作用">
+<meta name="twitter:title" content="C&#43;&#43;基类写成虚析构的作用">
+<meta property="og:url" content="https://whyzzd.github.io/2022/11/c-%E5%9F%BA%E7%B1%BB%E5%86%99%E6%88%90%E8%99%9A%E6%9E%90%E6%9E%84%E7%9A%84%E4%BD%9C%E7%94%A8/">
+<meta property="twitter:url" content="https://whyzzd.github.io/2022/11/c-%E5%9F%BA%E7%B1%BB%E5%86%99%E6%88%90%E8%99%9A%E6%9E%90%E6%9E%84%E7%9A%84%E4%BD%9C%E7%94%A8/">
 <meta property="og:site_name" content="">
-<meta property="og:description" content="本文将介绍利用hugo搭建个人博客的关键点以及踩过的坑。">
-<meta name="twitter:description" content="本文将介绍利用hugo搭建个人博客的关键点以及踩过的坑。">
+<meta property="og:description" content="结论：
+虚析构的作用是避免在delete基类指针时，没有执行派生的析构函数从而导致内存泄漏的问题。">
+<meta name="twitter:description" content="结论：
+虚析构的作用是避免在delete基类指针时，没有执行派生的析构函数从而导致内存泄漏的问题。">
 <meta property="og:locale" content="en">
 
   
-    <meta property="article:published_time" content="2021-07-02T16:48:36">
+    <meta property="article:published_time" content="2022-11-10T22:53:04">
   
   
-    <meta property="article:modified_time" content="2021-07-02T16:48:36">
+    <meta property="article:modified_time" content="2022-11-10T22:53:04">
   
-  
-  
-    
-      <meta property="article:section" content="安装教程">
-    
   
   
     
-      <meta property="article:tag" content="搭建网站">
+      <meta property="article:section" content="基础">
+    
+  
+  
+    
+      <meta property="article:tag" content="virtual，class">
     
   
 
@@ -57,14 +61,14 @@
   <meta property="twitter:image" content="https://whyzzd.github.io/images/a.JPG">
 
 
-    <title>MacOs使用hugo、github搭建个人博客</title>
+    <title>C&#43;&#43;基类写成虚析构的作用</title>
 
     <link rel="icon" href="/favicon.png">
     
 
     
 
-    <link rel="canonical" href="https://whyzzd.github.io/2021/07/macos%E4%BD%BF%E7%94%A8hugogithub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+    <link rel="canonical" href="https://whyzzd.github.io/2022/11/c-%E5%9F%BA%E7%B1%BB%E5%86%99%E6%88%90%E8%99%9A%E6%9E%90%E6%9E%84%E7%9A%84%E4%BD%9C%E7%94%A8/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -204,19 +208,19 @@
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      MacOs使用hugo、github搭建个人博客
+      C&#43;&#43;基类写成虚析构的作用
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2021-07-02T16:48:36&#43;08:00">
+      <time itemprop="datePublished" datetime="2022-11-10T22:53:04&#43;08:00">
         
   
   
   
   
-    2021年7月2日
+    2022年11月10日
   
 
       </time>
@@ -226,7 +230,7 @@
   
     <span></span>
     
-      <a class="category-link" href="/categories/%e5%ae%89%e8%a3%85%e6%95%99%e7%a8%8b">安装教程</a>
+      <a class="category-link" href="/categories/%e5%9f%ba%e7%a1%80">基础</a>
     
   
 
@@ -236,64 +240,56 @@
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>本文将介绍利用hugo搭建个人博客的关键点以及踩过的坑。</p>
-<h4 id="一准备工作">一、准备工作</h4>
-<p>本人所有的步骤都是基于mac os进行的</p>
-<h5 id="1brew安装网上有很多安装教程">1.brew安装（网上有很多安装教程）</h5>
-<h5 id="2github上创建一个仓库仓库的名称格式一定是usernamegithubio">2.github上创建一个仓库，仓库的名称格式一定是：username.github.io</h5>
-<h4 id="二安装步骤">二、安装步骤</h4>
-<h5 id="1本地测试">1.本地测试</h5>
-<ul>
-<li>
-<p>打开终端</p>
-</li>
-<li>
-<p>输入命令<code>brew install hugo</code>,此命令可直接安装hugo(当然，前提是将brew安装好)，hugo version可查看是否已经安装好。</p>
-</li>
-<li>
-<p>输入命令<code>hugo new site myblog</code>,最后一个单词为在当前目录下生成文件夹名，也是你的网站的大本营，后续大部分的操作都在这个文件夹下进行，此目录在下文中我统称为根目录。</p>
-</li>
-<li>
-<p>可在<a href="https://themes.gohugo.io/">hugo官网主题</a>进行下载主题,可以使用git命令对主题进行克隆，注意，下载的主题要放在博客根目录的themes目录下。</p>
-</li>
-<li>
-<p>在根目录下执行命令<code>hugo server -t hugo-tranquilpeak-theme --buildDrafts</code>,其中<code>hugo-tranquilpeak-theme</code>为你下载的主题名称,如果没问题就会提示下面信息，此时在浏览器中输入:<a href="localhost:1313">localhost:1313</a>,如果能正常显示，说明在本地服务器运行已经没问题。</p>
-</li>
-</ul>
-<div align=center><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2021/20210703172203.png" alt="01" style="zoom: 50%;" /></div>
-<ul>
-<li>如要在网页上显示文章，使用命令<code>hugo new post/filename.md</code>会在根目录下的content&ndash;&gt;post中生成一个filename.md文件，此时将写好的文章copy至此文件中，可再按照上一条命令进行测试。</li>
-</ul>
-<h5 id="2在github上测试">2.在github上测试</h5>
-<ul>
-<li>
-<p>首先在github上创建好仓库，注意事项见“准备工作”。</p>
-</li>
-<li>
-<p>在根目录下输入命令<code>hugo --theme=hugo-tranquilpeak-theme --baseUrl=&quot;https://whyzzd.github.io/&quot; --buildDrafts</code>，此命令会在根目录下生成一public的文件夹，里面存放的就是生成的网页的代码。</p>
-</li>
-<li>
-<p>接下来需要将这个目录上传至建好的仓库中，在public目录下依次使用命令:</p>
-<pre><code class="language-git" data-lang="git">git init
-git add .
-git commit -m &quot;随便&quot;
-git remote add origin https://github.com/whyzzd/whyzzd.github.io.git
-git push -u origin master
-</code></pre><p>最后一个命令输完后可能需要github密码</p>
-</li>
-<li>
-<p>经过以上操作后，在网页中访问https://whyzzd.github.io/即可看到搭建后的网页</p>
-</li>
-</ul>
-<h4 id="三在此过程中踩过的坑">三、在此过程中踩过的坑</h4>
-<h5 id="1第一次访问的时候发现啥都没有网页特别空和例子上的完全不一样">1.第一次访问的时候发现啥都没有，网页特别空，和例子上的完全不一样</h5>
-<p>后来发现是没有设置配置文件，配置文件位于根目录下的config.toml中(也有其它格式的后缀)，对于新手来说，一开始肯定不会配，别担心，直接去下载的主题的文件夹下，发现那里一般有个exampleSite的文件夹，在其中也有个config.toml文件，可直接将此文件的内容copy至根目录的config.toml中，这是效果就有了，具体的效果可以去README文件中去了解。</p>
-<h5 id="2关于无法识别html标签的问题">2.关于无法识别html标签的问题</h5>
-<p>hugo当中不知是bug还是什么情况，默认情况下无法md中原本的html元素生成新的html，这就导致了，在md文件中使用img标签时，在网页中无法加载，遇到这种情况需要在配置文件中添加代码即可解决。</p>
-<pre><code>[markup.goldmark.renderer]
-unsafe = true
-</code></pre><h5 id="3关于图片加载的问题">3.关于图片加载的问题</h5>
-<p>在根目录下，存在一个static的文件夹，此文件夹用来存放一些静态文件，网站所用的图片可放在此文件夹下，例如在static中创建一个images的文件夹，在里面存放一张aaa.png的图片，那么如果要在blog的文章中访问这张图片的话路径应该是“/images/aaa.png”，因为当网页push到github中后，会发现static中所有内容也到了github的目录下。</p>
+              <h4 id="结论">结论：</h4>
+<p>虚析构的作用是避免在delete基类指针时，没有执行派生的析构函数从而导致内存泄漏的问题。</p>
+<h4 id="验证">验证：</h4>
+<p>没有加virtual关键字的代码示例：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span>
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#f92672">~</span>A()
+	{
+		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;this is ~A()&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+	}
+
+};
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">B</span><span style="color:#f92672">:</span><span style="color:#66d9ef">public</span> A
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#f92672">~</span>B()
+	{
+		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;this is ~B()&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+	}
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	A <span style="color:#f92672">*</span>a <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> B();
+
+	<span style="color:#66d9ef">delete</span> a;
+	system(<span style="color:#e6db74">&#34;pause&#34;</span>);
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>执行结果：
+<img src="/Users/mac/myblog/content/post/1807d41f5f7949f08bd303994fcf8c99.png" alt="在这里插入图片描述">
+<em>发现虽然A类的指针指向了B类，但是在析构时，并没有走B的析构函数，此时发生了内存泄漏。</em></p>
+<p>加上virtual之后：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span>
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>A()
+	{
+		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;this is ~A()&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+	}
+
+};
+</code></pre></div><p>执行结果：
+<img src="/Users/mac/myblog/content/post/5342ed7094594ff6befa6eeb0338cbc3.png" alt="在这里插入图片描述">
+先执行的是B的析构，然后是A的析构，此时开辟的堆内存正确释放。</p>
+<h5 id="tips">Tips:</h5>
+<p>因此在使用多态时，顺便的为基类的析构函数加上virtual是个好习惯✔。</p>
+<hr>
+<p><strong>PS</strong>:如想学习C++的基础知识或者需要适合初学者的Demo可以直接访问我的代码仓库：<a href="https://github.com/whyzzd/Cpp-Study">点此跳转</a> (您的star🧡或者issues就是对我最大的鼓励)</p>
               
             </div>
           </div>
@@ -305,7 +301,7 @@ unsafe = true
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small"></span><br/>
                     
-  <a class="tag tag--primary tag--small" href="/tags/%E6%90%AD%E5%BB%BA%E7%BD%91%E7%AB%99/">搭建网站</a>
+  <a class="tag tag--primary tag--small" href="/tags/virtualclass/">virtual，class</a>
 
                   </div>
                 
@@ -318,7 +314,7 @@ unsafe = true
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/07/qt%E4%BD%BF%E7%94%A8mysql%E6%95%B0%E6%8D%AE%E5%BA%93/" data-tooltip="Qt使用MySql数据库">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml"></span>
@@ -326,7 +322,7 @@ unsafe = true
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/07/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E6%80%81%E7%9A%84%E8%81%8C%E5%B7%A5%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%B7%AF%E5%8F%8A%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" data-tooltip="基于多态的职工管理系统的思路及源码分析">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/07/c-%E9%9D%A2%E8%AF%95%E9%A2%98-%E5%AE%9A%E4%B9%89%E6%95%B0%E7%BB%84a%E5%92%8Ca%E5%8C%BA%E5%88%AB/" data-tooltip="C&#43;&#43;面试题 定义数组a[]和*a区别">
               
                   <span class="hide-xs hide-sm text-small icon-mr"></span>
                   <i class="fa fa-angle-right"></i>
@@ -344,19 +340,19 @@ unsafe = true
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://whyzzd.github.io/2021/07/macos%E4%BD%BF%E7%94%A8hugogithub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://whyzzd.github.io/2022/11/c-%E5%9F%BA%E7%B1%BB%E5%86%99%E6%88%90%E8%99%9A%E6%9E%90%E6%9E%84%E7%9A%84%E4%BD%9C%E7%94%A8/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://whyzzd.github.io/2021/07/macos%E4%BD%BF%E7%94%A8hugogithub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://whyzzd.github.io/2022/11/c-%E5%9F%BA%E7%B1%BB%E5%86%99%E6%88%90%E8%99%9A%E6%9E%90%E6%9E%84%E7%9A%84%E4%BD%9C%E7%94%A8/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://whyzzd.github.io/2021/07/macos%E4%BD%BF%E7%94%A8hugogithub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://whyzzd.github.io/2022/11/c-%E5%9F%BA%E7%B1%BB%E5%86%99%E6%88%90%E8%99%9A%E6%9E%90%E6%9E%84%E7%9A%84%E4%BD%9C%E7%94%A8/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -394,7 +390,7 @@ unsafe = true
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/07/qt%E4%BD%BF%E7%94%A8mysql%E6%95%B0%E6%8D%AE%E5%BA%93/" data-tooltip="Qt使用MySql数据库">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml"></span>
@@ -402,7 +398,7 @@ unsafe = true
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/07/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E6%80%81%E7%9A%84%E8%81%8C%E5%B7%A5%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%B7%AF%E5%8F%8A%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" data-tooltip="基于多态的职工管理系统的思路及源码分析">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/07/c-%E9%9D%A2%E8%AF%95%E9%A2%98-%E5%AE%9A%E4%B9%89%E6%95%B0%E7%BB%84a%E5%92%8Ca%E5%8C%BA%E5%88%AB/" data-tooltip="C&#43;&#43;面试题 定义数组a[]和*a区别">
               
                   <span class="hide-xs hide-sm text-small icon-mr"></span>
                   <i class="fa fa-angle-right"></i>
@@ -420,19 +416,19 @@ unsafe = true
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://whyzzd.github.io/2021/07/macos%E4%BD%BF%E7%94%A8hugogithub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://whyzzd.github.io/2022/11/c-%E5%9F%BA%E7%B1%BB%E5%86%99%E6%88%90%E8%99%9A%E6%9E%90%E6%9E%84%E7%9A%84%E4%BD%9C%E7%94%A8/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://whyzzd.github.io/2021/07/macos%E4%BD%BF%E7%94%A8hugogithub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://whyzzd.github.io/2022/11/c-%E5%9F%BA%E7%B1%BB%E5%86%99%E6%88%90%E8%99%9A%E6%9E%90%E6%9E%84%E7%9A%84%E4%BD%9C%E7%94%A8/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://whyzzd.github.io/2021/07/macos%E4%BD%BF%E7%94%A8hugogithub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://whyzzd.github.io/2022/11/c-%E5%9F%BA%E7%B1%BB%E5%86%99%E6%88%90%E8%99%9A%E6%9E%90%E6%9E%84%E7%9A%84%E4%BD%9C%E7%94%A8/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -456,19 +452,19 @@ unsafe = true
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwhyzzd.github.io%2F2021%2F07%2Fmacos%25E4%25BD%25BF%25E7%2594%25A8hugogithub%25E6%2590%25AD%25E5%25BB%25BA%25E4%25B8%25AA%25E4%25BA%25BA%25E5%258D%259A%25E5%25AE%25A2%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwhyzzd.github.io%2F2022%2F11%2Fc-%25E5%259F%25BA%25E7%25B1%25BB%25E5%2586%2599%25E6%2588%2590%25E8%2599%259A%25E6%259E%2590%25E6%259E%2584%25E7%259A%2584%25E4%25BD%259C%25E7%2594%25A8%2F">
           <i class="fa fa-facebook-official"></i><span>%!(EXTRA string=Facebook)</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fwhyzzd.github.io%2F2021%2F07%2Fmacos%25E4%25BD%25BF%25E7%2594%25A8hugogithub%25E6%2590%25AD%25E5%25BB%25BA%25E4%25B8%25AA%25E4%25BA%25BA%25E5%258D%259A%25E5%25AE%25A2%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fwhyzzd.github.io%2F2022%2F11%2Fc-%25E5%259F%25BA%25E7%25B1%25BB%25E5%2586%2599%25E6%2588%2590%25E8%2599%259A%25E6%259E%2590%25E6%259E%2584%25E7%259A%2584%25E4%25BD%259C%25E7%2594%25A8%2F">
           <i class="fa fa-twitter"></i><span>%!(EXTRA string=Twitter)</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fwhyzzd.github.io%2F2021%2F07%2Fmacos%25E4%25BD%25BF%25E7%2594%25A8hugogithub%25E6%2590%25AD%25E5%25BB%25BA%25E4%25B8%25AA%25E4%25BA%25BA%25E5%258D%259A%25E5%25AE%25A2%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fwhyzzd.github.io%2F2022%2F11%2Fc-%25E5%259F%25BA%25E7%25B1%25BB%25E5%2586%2599%25E6%2588%2590%25E8%2599%259A%25E6%259E%2590%25E6%259E%2584%25E7%259A%2584%25E4%25BD%259C%25E7%2594%25A8%2F">
           <i class="fa fa-google-plus"></i><span>%!(EXTRA string=Google&#43;)</span>
         </a>
       </li>

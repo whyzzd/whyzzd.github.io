@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>智能指针 on </title>
+    <link>https://whyzzd.github.io/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</link>
+    <description>Recent content in 智能指针 on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 11 Nov 2022 09:23:55 +0800</lastBuildDate><atom:link href="https://whyzzd.github.io/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C&#43;&#43;智能指针shared_ptr的使用方法</title>
+      <link>https://whyzzd.github.io/2022/11/c-%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88shared_ptr%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Fri, 11 Nov 2022 09:23:55 +0800</pubDate>
+      
+      <guid>https://whyzzd.github.io/2022/11/c-%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88shared_ptr%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</guid>
+      <description>&lt;p&gt;shared_ptr内部使用了引用计数的方式对同一块内存进行引用，&lt;strong&gt;对于同一块内存&lt;/strong&gt;，每多一个对它的指向，所有&lt;strong&gt;指针&lt;/strong&gt;的内部的&lt;strong&gt;引用计数就会加一&lt;/strong&gt;，每减少一个对它的指向，所有&lt;strong&gt;指针&lt;/strong&gt;内部的引&lt;strong&gt;用计数就会减一&lt;/strong&gt;，当引用计数减到0后，这块内存就被释放。把这句话理解了，用起来就比较容易了。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

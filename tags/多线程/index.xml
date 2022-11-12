@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>多线程 on </title>
+    <link>https://whyzzd.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</link>
+    <description>Recent content in 多线程 on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 10 Jul 2022 00:49:54 +0800</lastBuildDate><atom:link href="https://whyzzd.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>QtDemo-多线程拷贝文件</title>
+      <link>https://whyzzd.github.io/2022/07/qtdemo-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Sun, 10 Jul 2022 00:49:54 +0800</pubDate>
+      
+      <guid>https://whyzzd.github.io/2022/07/qtdemo-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;使用Qt线程进行拷贝多个文件至指定目录&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

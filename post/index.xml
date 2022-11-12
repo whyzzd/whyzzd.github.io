@@ -5,15 +5,77 @@
     <link>https://whyzzd.github.io/post/</link>
     <description>Recent content in Posts on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 10 Nov 2022 22:53:04 +0800</lastBuildDate><atom:link href="https://whyzzd.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Nov 2022 09:23:55 +0800</lastBuildDate><atom:link href="https://whyzzd.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C&#43;&#43;智能指针shared_ptr的使用方法</title>
+      <link>https://whyzzd.github.io/2022/11/c-%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88shared_ptr%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Fri, 11 Nov 2022 09:23:55 +0800</pubDate>
+      
+      <guid>https://whyzzd.github.io/2022/11/c-%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88shared_ptr%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</guid>
+      <description>&lt;p&gt;shared_ptr内部使用了引用计数的方式对同一块内存进行引用，&lt;strong&gt;对于同一块内存&lt;/strong&gt;，每多一个对它的指向，所有&lt;strong&gt;指针&lt;/strong&gt;的内部的&lt;strong&gt;引用计数就会加一&lt;/strong&gt;，每减少一个对它的指向，所有&lt;strong&gt;指针&lt;/strong&gt;内部的引&lt;strong&gt;用计数就会减一&lt;/strong&gt;，当引用计数减到0后，这块内存就被释放。把这句话理解了，用起来就比较容易了。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>C&#43;&#43;基类写成虚析构的作用</title>
       <link>https://whyzzd.github.io/2022/11/c-%E5%9F%BA%E7%B1%BB%E5%86%99%E6%88%90%E8%99%9A%E6%9E%90%E6%9E%84%E7%9A%84%E4%BD%9C%E7%94%A8/</link>
       <pubDate>Thu, 10 Nov 2022 22:53:04 +0800</pubDate>
       
       <guid>https://whyzzd.github.io/2022/11/c-%E5%9F%BA%E7%B1%BB%E5%86%99%E6%88%90%E8%99%9A%E6%9E%90%E6%9E%84%E7%9A%84%E4%BD%9C%E7%94%A8/</guid>
-      <description>&lt;h4 id=&#34;结论&#34;&gt;结论：&lt;/h4&gt;
-&lt;p&gt;虚析构的作用是避免在delete基类指针时，没有执行派生的析构函数从而导致内存泄漏的问题。&lt;/p&gt;</description>
+      <description>&lt;p&gt;虚析构的作用是避免在delete基类指针时，没有执行派生的析构函数从而导致内存泄漏的问题。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>编译器报错：不能将“this”指针从“const A”转换为“A&amp;”</title>
+      <link>https://whyzzd.github.io/2022/11/%E7%BC%96%E8%AF%91%E5%99%A8%E6%8A%A5%E9%94%99%E4%B8%8D%E8%83%BD%E5%B0%86this%E6%8C%87%E9%92%88%E4%BB%8Econst-a%E8%BD%AC%E6%8D%A2%E4%B8%BAa/</link>
+      <pubDate>Thu, 10 Nov 2022 22:38:16 +0800</pubDate>
+      
+      <guid>https://whyzzd.github.io/2022/11/%E7%BC%96%E8%AF%91%E5%99%A8%E6%8A%A5%E9%94%99%E4%B8%8D%E8%83%BD%E5%B0%86this%E6%8C%87%E9%92%88%E4%BB%8Econst-a%E8%BD%AC%E6%8D%A2%E4%B8%BAa/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>QtDemo-多线程拷贝文件</title>
+      <link>https://whyzzd.github.io/2022/07/qtdemo-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Sun, 10 Jul 2022 00:49:54 +0800</pubDate>
+      
+      <guid>https://whyzzd.github.io/2022/07/qtdemo-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;使用Qt线程进行拷贝多个文件至指定目录&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>QtDemo-基于TCP的客户端和服务器通信</title>
+      <link>https://whyzzd.github.io/2022/07/qtdemo-%E5%9F%BA%E4%BA%8Etcp%E7%9A%84%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%80%9A%E4%BF%A1/</link>
+      <pubDate>Sun, 10 Jul 2022 00:49:47 +0800</pubDate>
+      
+      <guid>https://whyzzd.github.io/2022/07/qtdemo-%E5%9F%BA%E4%BA%8Etcp%E7%9A%84%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%80%9A%E4%BF%A1/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;一个服务器可对多个客户端&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>二叉排序树构建以及顺序逆序输出(通俗易懂)</title>
+      <link>https://whyzzd.github.io/2022/04/%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91%E6%9E%84%E5%BB%BA%E4%BB%A5%E5%8F%8A%E9%A1%BA%E5%BA%8F%E9%80%86%E5%BA%8F%E8%BE%93%E5%87%BA%E9%80%9A%E4%BF%97%E6%98%93%E6%87%82/</link>
+      <pubDate>Fri, 29 Apr 2022 00:50:00 +0800</pubDate>
+      
+      <guid>https://whyzzd.github.io/2022/04/%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91%E6%9E%84%E5%BB%BA%E4%BB%A5%E5%8F%8A%E9%A1%BA%E5%BA%8F%E9%80%86%E5%BA%8F%E8%BE%93%E5%87%BA%E9%80%9A%E4%BF%97%E6%98%93%E6%87%82/</guid>
+      <description>&lt;p&gt;&lt;em&gt;重点是理解其思想,其中还有不少可以改进的问题,例如增加节点的形式,还有new的内存的没有释放等等.&lt;/em&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>单例模式(懒汉式)</title>
+      <link>https://whyzzd.github.io/2022/04/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E6%87%92%E6%B1%89%E5%BC%8F/</link>
+      <pubDate>Fri, 22 Apr 2022 00:50:28 +0800</pubDate>
+      
+      <guid>https://whyzzd.github.io/2022/04/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E6%87%92%E6%B1%89%E5%BC%8F/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;懒汉式单例模式简单实现&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>观察者模式</title>
+      <link>https://whyzzd.github.io/2022/04/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Fri, 22 Apr 2022 00:50:14 +0800</pubDate>
+      
+      <guid>https://whyzzd.github.io/2022/04/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;代码实现&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     
     <item>

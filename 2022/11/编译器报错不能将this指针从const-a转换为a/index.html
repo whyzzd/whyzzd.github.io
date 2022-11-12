@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.84.3 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="WYF">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编译器报错：不能将“this”指针从“const A”转换为“A&amp;”">
+<meta name="twitter:title" content="编译器报错：不能将“this”指针从“const A”转换为“A&amp;”">
+<meta property="og:url" content="https://whyzzd.github.io/2022/11/%E7%BC%96%E8%AF%91%E5%99%A8%E6%8A%A5%E9%94%99%E4%B8%8D%E8%83%BD%E5%B0%86this%E6%8C%87%E9%92%88%E4%BB%8Econst-a%E8%BD%AC%E6%8D%A2%E4%B8%BAa/">
+<meta property="twitter:url" content="https://whyzzd.github.io/2022/11/%E7%BC%96%E8%AF%91%E5%99%A8%E6%8A%A5%E9%94%99%E4%B8%8D%E8%83%BD%E5%B0%86this%E6%8C%87%E9%92%88%E4%BB%8Econst-a%E8%BD%AC%E6%8D%A2%E4%B8%BAa/">
+<meta property="og:site_name" content="">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en">
+
+  
+    <meta property="article:published_time" content="2022-11-10T22:38:16">
+  
+  
+    <meta property="article:modified_time" content="2022-11-10T22:38:16">
+  
+  
+  
+    
+      <meta property="article:section" content="调试">
+    
+  
+  
+    
+      <meta property="article:tag" content="编译器报错">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://whyzzd.github.io/images/a.JPG">
+  <meta property="twitter:image" content="https://whyzzd.github.io/images/a.JPG">
+
+
+    <title>编译器报错：不能将“this”指针从“const A”转换为“A&amp;”</title>
+
+    <link rel="icon" href="/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://whyzzd.github.io/2022/11/%E7%BC%96%E8%AF%91%E5%99%A8%E6%8A%A5%E9%94%99%E4%B8%8D%E8%83%BD%E5%B0%86this%E6%8C%87%E9%92%88%E4%BB%8Econst-a%E8%BD%AC%E6%8D%A2%E4%B8%BAa/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="1">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/"></a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://whyzzd.github.io/images/a.JPG" alt="" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="1">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="https://whyzzd.github.io/images/a.JPG" alt="" />
+        </a>
+        <h4 class="sidebar-profile-name">WYF</h4>
+        
+          <h5 class="sidebar-profile-bio">一个正在奋斗的小青年</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">主页</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">分类</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">标签</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">档案</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">关于</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/whyzzd" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="1"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      编译器报错：不能将“this”指针从“const A”转换为“A&amp;”
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2022-11-10T22:38:16&#43;08:00">
+        
+  
+  
+  
+  
+    2022年11月10日
+  
+
+      </time>
+    
+    
+  
+  
+    <span></span>
+    
+      <a class="category-link" href="/categories/%e8%b0%83%e8%af%95">调试</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p><img src="https://cdn.jsdelivr.net/gh/whyzzd/pic-Bed/images/2022/20221113004328.png" alt="在这里插入图片描述"></p>
+<p>今天写代码发现编译器报这种错：
+看了很久，最后在网上找到原因<a href="https://blog.csdn.net/Q1302182594/article/details/50726998">（文章链接）</a></p>
+<hr>
+<h2 id="简化代码复现问题代码如下">简化代码复现问题，代码如下：</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span>
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	A(<span style="color:#66d9ef">int</span> a)
+	{
+		m_a <span style="color:#f92672">=</span> a;
+	}
+	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">set_a</span>(<span style="color:#66d9ef">int</span> a)
+	{
+		m_a <span style="color:#f92672">=</span> a;
+	}
+	<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">get_a</span>()
+	{
+		<span style="color:#66d9ef">return</span> m_a;
+	}
+
+	<span style="color:#66d9ef">int</span> aaaa;
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">int</span> m_a;
+};
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">ChangeFun</span>(<span style="color:#66d9ef">const</span> A<span style="color:#f92672">*</span>a)
+{
+	<span style="color:#66d9ef">return</span> a<span style="color:#f92672">-&gt;</span>get_a();
+}
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	A <span style="color:#f92672">*</span>a <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> A(<span style="color:#ae81ff">5</span>);
+	a<span style="color:#f92672">-&gt;</span>set_a(<span style="color:#ae81ff">3</span>);
+	ChangeFun(a);
+	a<span style="color:#f92672">-&gt;</span>get_a();
+	
+	system(<span style="color:#e6db74">&#34;pause&#34;</span>);
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>这段代码编译是通不过的，会报前面图中的错误。</p>
+<h2 id="原因分析">原因分析</h2>
+<p>这里的原因就是因为这个const，一般为了防止对象被修改，经常的会形参前面加上一个const，对于这段代码来说看上去好像没有什么问题，这里只是调用了一下它的get函数，并没有改变它的值(反正我自己刚开始也是这么觉得)。</p>
+<p>但实际上，将指针a传入ChangFun前，a所指的对象实例不是const的，是可以改变的，<code>a-&gt;set_a(3);</code> 是没有问题的，在进入到函数之后，实例就变成了const类型了，是不能修改的（里面的this指针类似于const (*const this)）而此时去调用它的get函数是会失败的，因为get函数目前只支持（*const this）的调用，所以就会提示不能从“const A”转换为&quot;A&amp;&quot;  。
+(如果解释有问题，欢迎指正，共同进步😊)</p>
+<h2 id="解决">解决</h2>
+<p><strong>两种方法解决</strong>：
+1.在成员函数后加上const ：<code>int get_a() const</code>，这样const就统一了，就不会报错了。
+2.不用const（不推荐）</p>
+<hr>
+<p><strong>PS</strong>:如想学习C++的基础知识或者需要适合初学者的Demo可以直接访问我的代码仓库：<a href="https://github.com/whyzzd/Cpp-Study">点此跳转</a> (您的star🧡或者issues就是对我最大的鼓励)</p>
+<p>（本文同发于<a href="https://blog.csdn.net/qq_39618959/article/details/127797046?spm=1001.2014.3001.5501">CSDN</a> ）</p>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small"></span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/tags/%E7%BC%96%E8%AF%91%E5%99%A8%E6%8A%A5%E9%94%99/">编译器报错</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2022/11/c-%E5%9F%BA%E7%B1%BB%E5%86%99%E6%88%90%E8%99%9A%E6%9E%90%E6%9E%84%E7%9A%84%E4%BD%9C%E7%94%A8/" data-tooltip="C&#43;&#43;基类写成虚析构的作用">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml"></span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2022/07/qtdemo-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6/" data-tooltip="QtDemo-多线程拷贝文件">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr"></span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://whyzzd.github.io/2022/11/%E7%BC%96%E8%AF%91%E5%99%A8%E6%8A%A5%E9%94%99%E4%B8%8D%E8%83%BD%E5%B0%86this%E6%8C%87%E9%92%88%E4%BB%8Econst-a%E8%BD%AC%E6%8D%A2%E4%B8%BAa/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://whyzzd.github.io/2022/11/%E7%BC%96%E8%AF%91%E5%99%A8%E6%8A%A5%E9%94%99%E4%B8%8D%E8%83%BD%E5%B0%86this%E6%8C%87%E9%92%88%E4%BB%8Econst-a%E8%BD%AC%E6%8D%A2%E4%B8%BAa/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://whyzzd.github.io/2022/11/%E7%BC%96%E8%AF%91%E5%99%A8%E6%8A%A5%E9%94%99%E4%B8%8D%E8%83%BD%E5%B0%86this%E6%8C%87%E9%92%88%E4%BB%8Econst-a%E8%BD%AC%E6%8D%A2%E4%B8%BAa/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2022 <a href="https://github.com/whyzzd">WYF</a>. 
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="1">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2022/11/c-%E5%9F%BA%E7%B1%BB%E5%86%99%E6%88%90%E8%99%9A%E6%9E%90%E6%9E%84%E7%9A%84%E4%BD%9C%E7%94%A8/" data-tooltip="C&#43;&#43;基类写成虚析构的作用">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml"></span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2022/07/qtdemo-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6/" data-tooltip="QtDemo-多线程拷贝文件">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr"></span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://whyzzd.github.io/2022/11/%E7%BC%96%E8%AF%91%E5%99%A8%E6%8A%A5%E9%94%99%E4%B8%8D%E8%83%BD%E5%B0%86this%E6%8C%87%E9%92%88%E4%BB%8Econst-a%E8%BD%AC%E6%8D%A2%E4%B8%BAa/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://whyzzd.github.io/2022/11/%E7%BC%96%E8%AF%91%E5%99%A8%E6%8A%A5%E9%94%99%E4%B8%8D%E8%83%BD%E5%B0%86this%E6%8C%87%E9%92%88%E4%BB%8Econst-a%E8%BD%AC%E6%8D%A2%E4%B8%BAa/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://whyzzd.github.io/2022/11/%E7%BC%96%E8%AF%91%E5%99%A8%E6%8A%A5%E9%94%99%E4%B8%8D%E8%83%BD%E5%B0%86this%E6%8C%87%E9%92%88%E4%BB%8Econst-a%E8%BD%AC%E6%8D%A2%E4%B8%BAa/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="1">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwhyzzd.github.io%2F2022%2F11%2F%25E7%25BC%2596%25E8%25AF%2591%25E5%2599%25A8%25E6%258A%25A5%25E9%2594%2599%25E4%25B8%258D%25E8%2583%25BD%25E5%25B0%2586this%25E6%258C%2587%25E9%2592%2588%25E4%25BB%258Econst-a%25E8%25BD%25AC%25E6%258D%25A2%25E4%25B8%25BAa%2F">
+          <i class="fa fa-facebook-official"></i><span>%!(EXTRA string=Facebook)</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fwhyzzd.github.io%2F2022%2F11%2F%25E7%25BC%2596%25E8%25AF%2591%25E5%2599%25A8%25E6%258A%25A5%25E9%2594%2599%25E4%25B8%258D%25E8%2583%25BD%25E5%25B0%2586this%25E6%258C%2587%25E9%2592%2588%25E4%25BB%258Econst-a%25E8%25BD%25AC%25E6%258D%25A2%25E4%25B8%25BAa%2F">
+          <i class="fa fa-twitter"></i><span>%!(EXTRA string=Twitter)</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fwhyzzd.github.io%2F2022%2F11%2F%25E7%25BC%2596%25E8%25AF%2591%25E5%2599%25A8%25E6%258A%25A5%25E9%2594%2599%25E4%25B8%258D%25E8%2583%25BD%25E5%25B0%2586this%25E6%258C%2587%25E9%2592%2588%25E4%25BB%258Econst-a%25E8%25BD%25AC%25E6%258D%25A2%25E4%25B8%25BAa%2F">
+          <i class="fa fa-google-plus"></i><span>%!(EXTRA string=Google&#43;)</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://whyzzd.github.io/images/a.JPG" alt="" />
+    
+    <h4 id="about-card-name">WYF</h4>
+    
+      <div id="about-card-bio">一个正在奋斗的小青年</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        无更多
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        武汉
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://whyzzd.github.io/images/b.JPG');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+

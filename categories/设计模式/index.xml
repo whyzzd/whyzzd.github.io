@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>设计模式 on </title>
+    <link>https://whyzzd.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+    <description>Recent content in 设计模式 on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 22 Apr 2022 00:50:28 +0800</lastBuildDate><atom:link href="https://whyzzd.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>单例模式(懒汉式)</title>
+      <link>https://whyzzd.github.io/2022/04/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E6%87%92%E6%B1%89%E5%BC%8F/</link>
+      <pubDate>Fri, 22 Apr 2022 00:50:28 +0800</pubDate>
+      
+      <guid>https://whyzzd.github.io/2022/04/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E6%87%92%E6%B1%89%E5%BC%8F/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;懒汉式单例模式简单实现&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>观察者模式</title>
+      <link>https://whyzzd.github.io/2022/04/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Fri, 22 Apr 2022 00:50:14 +0800</pubDate>
+      
+      <guid>https://whyzzd.github.io/2022/04/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;代码实现&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
